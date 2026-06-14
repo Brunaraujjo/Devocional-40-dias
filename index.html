@@ -4,15 +4,61 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>40 Dias — Segundo o Coração de Deus</title>
-
-<!-- PWA -->
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
 <meta name="theme-color" content="#5C2B0A">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="40 Dias">
+
+<script>
+(function(){
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+    <defs>
+      <radialGradient id="bg" cx="50%" cy="60%" r="75%">
+        <stop offset="0%" stop-color="#E8814F"/>
+        <stop offset="100%" stop-color="#5C2B0A"/>
+      </radialGradient>
+    </defs>
+    <rect width="400" height="400" rx="88" fill="url(#bg)"/>
+    <path d="M200 310 C140 270 72 222 72 158 C72 118 100 90 134 94 C154 97 170 110 180 124 Q190 136 200 148 Q210 136 220 124 C230 110 246 97 266 94 C300 90 328 118 328 158 C328 222 260 270 200 310Z" fill="white" opacity="0.97"/>
+    <path d="M200 290 C185 265 165 240 168 210 C171 185 184 172 190 158 C194 170 196 185 192 200 C200 185 204 168 200 150 C208 162 214 178 210 196 C216 182 217 165 213 150 C224 165 228 185 222 205 C228 192 228 175 224 160 C236 178 238 200 232 220 C228 240 216 260 200 290Z" fill="#D4622A" opacity="0.88"/>
+    <path d="M200 270 C192 252 182 234 185 215 C187 200 194 192 198 182 C200 190 201 202 198 212 C203 200 205 188 202 177 C209 187 212 200 208 214 C212 204 212 192 209 181 C217 193 219 210 214 224 C210 240 206 256 200 270Z" fill="#C9923A" opacity="0.9"/>
+    <path d="M200 248 C196 236 191 224 193 212 C195 203 198 197 200 191 C202 197 204 206 202 214 C205 206 205 197 203 190 C208 198 209 210 206 220 C204 230 202 240 200 248Z" fill="#FDF6EE" opacity="0.75"/>
+    <text x="200" y="374" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-style="italic" fill="white" opacity="0.75" letter-spacing="3">40 dias</text>
+  </svg>`;
+
+  const b64 = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svg)));
+
+  // Apple touch icon
+  const apple = document.createElement('link');
+  apple.rel = 'apple-touch-icon';
+  apple.href = b64;
+  document.head.appendChild(apple);
+
+  // Manifest inline
+  const manifest = {
+    name: "40 Dias — Segundo o Coração de Deus",
+    short_name: "40 Dias",
+    description: "Devocional de 40 dias baseado na vida de Davi",
+    start_url: "./",
+    display: "standalone",
+    background_color: "#5C2B0A",
+    theme_color: "#5C2B0A",
+    orientation: "portrait",
+    icons: [
+      { src: b64, sizes: "192x192", type: "image/svg+xml", purpose: "any" },
+      { src: b64, sizes: "512x512", type: "image/svg+xml", purpose: "any" }
+    ]
+  };
+
+  const blob = new Blob([JSON.stringify(manifest)], {type: 'application/manifest+json'});
+  const mLink = document.createElement('link');
+  mLink.rel = 'manifest';
+  mLink.href = URL.createObjectURL(blob);
+  document.head.appendChild(mLink);
+})();
+</script>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -35,7 +81,6 @@
     min-height: 100vh;
   }
 
-  /* Header */
   .header {
     background: linear-gradient(160deg, var(--marrom) 0%, var(--laranja) 60%, var(--laranja-claro) 100%);
     padding: 40px 24px 50px;
@@ -62,10 +107,7 @@
     line-height: 1.3;
     position: relative;
   }
-  .header h1 span {
-    font-style: italic;
-    font-weight: 400;
-  }
+  .header h1 span { font-style: italic; font-weight: 400; }
   .header p {
     color: rgba(255,255,255,0.8);
     font-size: 0.85rem;
@@ -88,7 +130,6 @@
     margin-right: auto;
   }
 
-  /* Progresso */
   .progress-section {
     background: white;
     margin: 0 16px;
@@ -103,22 +144,9 @@
     align-items: center;
     margin-bottom: 10px;
   }
-  .progress-label span {
-    font-size: 0.8rem;
-    color: var(--marrom-medio);
-    font-style: italic;
-  }
-  .progress-label strong {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: var(--laranja);
-  }
-  .progress-bar-bg {
-    height: 10px;
-    background: #f0e0d0;
-    border-radius: 999px;
-    overflow: hidden;
-  }
+  .progress-label span { font-size: 0.8rem; color: var(--marrom-medio); font-style: italic; }
+  .progress-label strong { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--laranja); }
+  .progress-bar-bg { height: 10px; background: #f0e0d0; border-radius: 999px; overflow: hidden; }
   .progress-bar-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--laranja), var(--ouro));
@@ -126,10 +154,7 @@
     transition: width 0.6s ease;
   }
 
-  /* Grid de dias */
-  .days-section {
-    padding: 0 16px 24px;
-  }
+  .days-section { padding: 0 16px 24px; }
   .section-title {
     font-family: 'Playfair Display', serif;
     font-size: 1rem;
@@ -139,11 +164,7 @@
     text-transform: uppercase;
     font-style: italic;
   }
-  .days-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-  }
+  .days-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
   .day-btn {
     aspect-ratio: 1;
     border-radius: 12px;
@@ -159,47 +180,16 @@
     overflow: hidden;
   }
   .day-btn:active { transform: scale(0.95); }
-  .day-btn .day-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--marrom-medio);
-  }
-  .day-btn .day-label {
-    font-size: 0.55rem;
-    color: #b8907a;
-    font-style: italic;
-    margin-top: 1px;
-  }
-  /* Estado: concluído */
-  .day-btn.done {
-    background: linear-gradient(135deg, var(--laranja), var(--ouro));
-    border-color: var(--laranja);
-  }
+  .day-btn .day-num { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--marrom-medio); }
+  .day-btn .day-label { font-size: 0.55rem; color: #b8907a; font-style: italic; margin-top: 1px; }
+  .day-btn.done { background: linear-gradient(135deg, var(--laranja), var(--ouro)); border-color: var(--laranja); }
   .day-btn.done .day-num { color: white; }
   .day-btn.done .day-label { color: rgba(255,255,255,0.8); }
-  .day-btn.done::after {
-    content: '✓';
-    position: absolute;
-    top: 4px;
-    right: 6px;
-    font-size: 0.6rem;
-    color: rgba(255,255,255,0.9);
-  }
-  /* Estado: hoje */
-  .day-btn.today {
-    border-color: var(--laranja);
-    background: var(--laranja-fundo);
-    box-shadow: 0 0 0 3px rgba(212,98,42,0.2);
-  }
+  .day-btn.done::after { content: '✓'; position: absolute; top: 4px; right: 6px; font-size: 0.6rem; color: rgba(255,255,255,0.9); }
+  .day-btn.today { border-color: var(--laranja); background: var(--laranja-fundo); box-shadow: 0 0 0 3px rgba(212,98,42,0.2); }
   .day-btn.today .day-num { color: var(--laranja); }
-  /* Estado: futuro */
-  .day-btn.future {
-    opacity: 0.5;
-    cursor: default;
-  }
+  .day-btn.future { opacity: 0.5; cursor: default; }
 
-  /* Meditação do dia */
   .meditation-section {
     margin: 0 16px 32px;
     background: white;
@@ -223,16 +213,8 @@
     border-radius: 999px;
     white-space: nowrap;
   }
-  .meditation-header h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: white;
-    font-style: italic;
-    line-height: 1.3;
-  }
-  .meditation-body {
-    padding: 20px;
-  }
+  .meditation-header h2 { font-family: 'Playfair Display', serif; font-size: 1rem; color: white; font-style: italic; line-height: 1.3; }
+  .meditation-body { padding: 20px; }
   .med-versiculo {
     background: var(--laranja-fundo);
     border-left: 3px solid var(--ouro);
@@ -244,35 +226,11 @@
     line-height: 1.6;
     color: var(--marrom);
   }
-  .med-versiculo cite {
-    display: block;
-    margin-top: 6px;
-    font-size: 0.75rem;
-    color: var(--ouro);
-    font-style: normal;
-    font-weight: 500;
-  }
-  .med-reflexao {
-    font-size: 0.87rem;
-    line-height: 1.7;
-    color: #4a2010;
-    margin-bottom: 16px;
-  }
-  .med-pergunta {
-    background: linear-gradient(135deg, rgba(212,98,42,0.08), rgba(201,146,58,0.08));
-    border-radius: 12px;
-    padding: 14px;
-    margin-bottom: 16px;
-  }
-  .med-pergunta p {
-    font-size: 0.83rem;
-    color: var(--marrom);
-    line-height: 1.6;
-    font-style: italic;
-  }
-  .med-pergunta p::before {
-    content: '🕊 ';
-  }
+  .med-versiculo cite { display: block; margin-top: 6px; font-size: 0.75rem; color: var(--ouro); font-style: normal; font-weight: 500; }
+  .med-reflexao { font-size: 0.87rem; line-height: 1.7; color: #4a2010; margin-bottom: 16px; }
+  .med-pergunta { background: linear-gradient(135deg, rgba(212,98,42,0.08), rgba(201,146,58,0.08)); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
+  .med-pergunta p { font-size: 0.83rem; color: var(--marrom); line-height: 1.6; font-style: italic; }
+  .med-pergunta p::before { content: '🕊 '; }
   .med-oracao-btn {
     width: 100%;
     background: transparent;
@@ -286,24 +244,9 @@
     cursor: pointer;
     transition: all 0.2s;
   }
-  .med-oracao-btn:hover, .med-oracao-btn.open {
-    background: var(--laranja-fundo);
-    border-style: solid;
-  }
-  .med-oracao {
-    display: none;
-    margin-top: 12px;
-    font-size: 0.82rem;
-    line-height: 1.7;
-    color: var(--marrom-medio);
-    font-style: italic;
-    padding: 12px;
-    background: var(--laranja-fundo);
-    border-radius: 8px;
-  }
+  .med-oracao-btn:hover, .med-oracao-btn.open { background: var(--laranja-fundo); border-style: solid; }
+  .med-oracao { display: none; margin-top: 12px; font-size: 0.82rem; line-height: 1.7; color: var(--marrom-medio); font-style: italic; padding: 12px; background: var(--laranja-fundo); border-radius: 8px; }
   .med-oracao.visible { display: block; }
-
-  /* Marcar dia */
   .marcar-btn {
     width: 100%;
     padding: 14px;
@@ -320,19 +263,9 @@
     letter-spacing: 0.02em;
   }
   .marcar-btn:hover { opacity: 0.9; }
-  .marcar-btn.marcado {
-    background: #a8d5a0;
-    cursor: default;
-  }
+  .marcar-btn.marcado { background: #a8d5a0; cursor: default; }
 
-  /* Rodapé */
-  footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 0.75rem;
-    color: #c09070;
-    font-style: italic;
-  }
+  footer { text-align: center; padding: 24px; font-size: 0.75rem; color: #c09070; font-style: italic; }
 </style>
 </head>
 <body>
@@ -369,17 +302,13 @@
       <cite>— Salmos 51:10</cite>
     </div>
     <div class="med-reflexao" id="med-reflexao">
-      Davi não foi escolhido por ser perfeito — foi escolhido porque seu coração estava disponível. Quando Samuel chegou à casa de Jessé, o menor dos filhos nem havia sido chamado para a festa. Davi estava no campo, cuidando das ovelhas, fazendo o simples. E foi lá que Deus o viu.
-      <br><br>
-      O início desta jornada é um convite para você também se fazer disponível. Não com desempenho, não com aparência — mas com o coração virado para Deus, mesmo nas tarefas cotidianas e anônimas.
+      Davi não foi escolhido por ser perfeito — foi escolhido porque seu coração estava disponível.
     </div>
     <div class="med-pergunta">
-      <p>O que em sua vida hoje é o seu "campo com as ovelhas" — aquele lugar simples onde Deus pode te encontrar?</p>
+      <p id="med-pergunta-text">O que em sua vida hoje é o seu "campo com as ovelhas"?</p>
     </div>
     <button class="med-oracao-btn" id="oracao-btn" onclick="toggleOracao()">✦ Ver sugestão de oração para hoje</button>
-    <div class="med-oracao" id="oracao-text">
-      Senhor, disponho meu coração diante de Ti. Não venho com conquistas para mostrar, venho como sou. Assim como Tu enxergaste Davi no campo, quero que me encontres no ordinário do meu dia. Cria em mim um coração que Te busca antes de qualquer coisa. Amém.
-    </div>
+    <div class="med-oracao" id="oracao-text"></div>
     <button class="marcar-btn" id="marcar-btn" onclick="marcarDia()">✓ Marcar Dia 1 como concluído</button>
   </div>
 </div>
@@ -387,273 +316,83 @@
 <footer>Iniciado em 08 de junho de 2025 • com propósito e com fé ♡</footer>
 
 <script>
-const hoje = new Date();
 const STORAGE_KEY = 'devocional_40_dias_bruna';
 
-// Meditações dos 40 dias
 const meditacoes = [
   {
     titulo: "Um coração disponível",
     versiculo: '"Cria em mim, ó Deus, um coração puro, e renova dentro de mim um espírito reto."',
     referencia: "Salmos 51:10",
-    reflexao: `Davi não foi escolhido por ser perfeito — foi escolhido porque seu coração estava disponível. Quando Samuel chegou à casa de Jessé, o menor dos filhos nem havia sido chamado para a festa. Davi estava no campo, cuidando das ovelhas, fazendo o simples. E foi lá que Deus o viu.
-    
-O início desta jornada é um convite para você também se fazer disponível. Não com desempenho, não com aparência — mas com o coração virado para Deus, mesmo nas tarefas cotidianas e anônimas.`,
+    reflexao: `Davi não foi escolhido por ser perfeito — foi escolhido porque seu coração estava disponível. Quando Samuel chegou à casa de Jessé, o menor dos filhos nem havia sido chamado para a festa. Davi estava no campo, cuidando das ovelhas, fazendo o simples. E foi lá que Deus o viu.<br><br>O início desta jornada é um convite para você também se fazer disponível. Não com desempenho, não com aparência — mas com o coração virado para Deus, mesmo nas tarefas cotidianas e anônimas.`,
     pergunta: "O que em sua vida hoje é o seu 'campo com as ovelhas' — aquele lugar simples onde Deus pode te encontrar?",
     oracao: "Senhor, disponho meu coração diante de Ti. Não venho com conquistas para mostrar, venho como sou. Assim como Tu enxergaste Davi no campo, quero que me encontres no ordinário do meu dia. Cria em mim um coração que Te busca antes de qualquer coisa. Amém."
   },
-  {
-    titulo: "O que os olhos não veem",
-    versiculo: '"O Senhor não vê como o homem vê; o homem vê o exterior, mas o Senhor vê o coração."',
-    referencia: "1 Samuel 16:7",
-    reflexao: `Sete irmãos passaram diante de Samuel e nenhum era o escolhido. Todos impressionantes, altos, capazes. Mas Deus olhava para algo que nenhum deles mostrava por fora: o interior.
-    
-Quantas vezes nos esforçamos para parecer o que ainda não somos? Hoje, o convite é descansar da performance. Deus já te vê — não o que você projeta, mas o que você é. E ainda assim, te escolhe.`,
-    pergunta: "Existe alguma área da sua vida onde você está tentando impressionar mais do que simplesmente ser?",
-    oracao: "Pai, que meu coração seja mais real diante de Ti do que minha aparência diante dos homens. Ensina-me a viver de dentro para fora. Amém."
-  },
-  {
-    titulo: "A arpa antes da batalha",
-    versiculo: '"Louvai ao Senhor com harpa; cantai-lhe com o saltério de dez cordas."',
-    referencia: "Salmos 33:2",
-    reflexao: `Davi era músico antes de ser rei. Antes de enfrentar Golias, ele havia passado anos aprendendo a adorar. A arpa não era apenas um instrumento — era a linguagem do coração de Davi com Deus.
-    
-Toda grande batalha começa numa adoração silenciosa e anônima. O que você está cultivando agora, longe dos olhos de todos, é o que te sustentará nas horas difíceis.`,
-    pergunta: "Qual é a sua 'arpa' — como você se conecta com Deus no dia a dia, longe dos olhos de todos?",
-    oracao: "Senhor, que minha adoração seja real, não apenas pública. Que eu saiba Te adorar no silêncio do campo, antes de qualquer palco. Amém."
-  },
-  {
-    titulo: "Confiar quando não entende",
-    versiculo: '"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento."',
-    referencia: "Provérbios 3:5",
-    reflexao: `Davi foi ungido rei quando tinha uns 15 anos. Mas passou mais de uma década fugindo, escondendo-se em cavernas, sendo perseguido por Saul. O intervalo entre a promessa e o cumprimento foi cheio de silêncio de Deus.
-    
-Confiar não é entender. É escolher permanecer fiel mesmo quando o caminho não faz sentido. A espera de Davi não foi passiva — ele escolhia ativamente honrar a Deus em cada caverna.`,
-    pergunta: "Há uma promessa ou sonho que Deus colocou em você mas que ainda não se cumpriu? Como você está lidando com essa espera?",
-    oracao: "Senhor, ajuda-me a confiar no Teu tempo. Que eu não corra à frente de Ti nem desanime na espera. Que a espera me molde, não me amargure. Amém."
-  },
-  {
-    titulo: "Honrar a quem te faz mal",
-    versiculo: '"Longe de mim, que eu faça isso ao meu senhor, o ungido do Senhor, que eu estenda a minha mão contra ele."',
-    referencia: "1 Samuel 24:6",
-    reflexao: `Davi teve Saul na mão — duas vezes. Poderia ter matado quem tentava matar ele. Mas não fez isso. Por quê? Porque escolheu honrar a unção, mesmo num homem que havia falhado.
-    
-Ter caráter é especialmente difícil quando a outra pessoa não merece. O coração de Deus é um coração que honra mesmo quando não é honrado. Isso é raro. E é exatamente o que nos transforma.`,
-    pergunta: "Há alguém em sua vida que te feriu e que você ainda precisa aprender a honrar ou perdoar — não pelo que merecem, mas pelo que Deus pede de você?",
-    oracao: "Pai, dá-me um coração generoso como o de Davi. Que eu não me veje de quem me fez mal. Que o meu caráter não seja definido pelas falhas dos outros, mas pela Tua graça em mim. Amém."
-  },
-  {
-    titulo: "Dançar sem vergonha",
-    versiculo: '"E Davi dançava com toda a força diante do Senhor."',
-    referencia: "2 Samuel 6:14",
-    reflexao: `Quando a arca do Senhor entrou em Jerusalém, Davi dançou. Sua esposa Mical o viu e sentiu vergonha. Mas Davi disse: "Ainda me farei mais vil do que isso." Para ele, a adoração era mais importante que a imagem.
-    
-Existe uma adoração que vive dentro de nós, mas que calamos por medo do julgamento. Hoje, o convite é deixar esse coração se expressar — na oração, na gratidão, na entrega.`,
-    pergunta: "Existe algo que você gostaria de expressar a Deus mas que a vergonha ou o que os outros pensam tem bloqueado?",
-    oracao: "Senhor, liberta meu coração de qualquer performance. Que eu Te adore em espírito e em verdade, sem me importar com a aprovação alheia. Amém."
-  },
-  {
-    titulo: "A bondade que transborda",
-    versiculo: '"Existe ainda alguém da casa de Saul, para quem eu possa mostrar bondade?"',
-    referencia: "2 Samuel 9:1",
-    reflexao: `Quando Davi se estabeleceu como rei, a primeira coisa que perguntou foi: tem alguém da família do meu inimigo que eu possa abençoar? Mefiboséte, filho de Jônatas, vivia escondido, com medo. E Davi o trouxe para a mesa real.
-    
-O coração segundo Deus não esquece os excluídos. Quem você está esquecendo? Quem está escondido ao redor de você, esperando um ato de bondade inesperado?`,
-    pergunta: "Quem em sua vida poderia ser 'trazido à sua mesa' — receber sua atenção, afeto ou bondade hoje?",
-    oracao: "Pai, dá-me olhos para enxergar os invisíveis ao meu redor. Que minha mesa seja grande como a de Davi — com lugar para quem menos espera. Amém."
-  },
-  {
-    titulo: "A queda e o retorno",
-    versiculo: '"Porque o justo cai sete vezes e se levanta; mas os ímpios tropeçam no mal."',
-    referencia: "Provérbios 24:16",
-    reflexao: `Davi pecou. Gravemente. O caso com Bate-Seba não foi um deslize pequeno. Mas a história de Davi não terminou aí — ela continuou depois do Salmo 51.
-    
-O que diferencia um coração segundo Deus não é a ausência de quedas, é a disposição de se levantar. Deus não busca perfeição — busca um coração que, ao perceber que errou, corre de volta a Ele.`,
-    pergunta: "Você está carregando culpa de algo que Deus já perdoou? O que te impede de se levantar e continuar?",
-    oracao: "Senhor, que o meu erro não defina minha história. Que o Teu perdão seja maior que a minha vergonha. Ajuda-me a me levantar e a caminhar de novo. Amém."
-  },
-  {
-    titulo: "O peso da liderança",
-    versiculo: '"Ele os apascentou segundo a integridade do seu coração e os guiou com a destreza das suas mãos."',
-    referencia: "Salmos 78:72",
-    reflexao: `Davi liderou com dois elementos: integridade de coração e habilidade de mãos. Os dois juntos. Não apenas competência técnica sem caráter, e não apenas boas intenções sem preparo.
-    
-Onde quer que você exerça influência — na família, no trabalho, entre amigos — você está liderando. A pergunta não é se você lidera, é como.`,
-    pergunta: "Em qual área da sua vida Deus te pede mais integridade? E em qual te pede mais preparo e habilidade?",
-    oracao: "Pai, que eu lidere com integridade e competência. Que o que faço reflita quem sou por dentro. E que quem eu sou por dentro reflita quem Tu és. Amém."
-  },
-  {
-    titulo: "Guardar a promessa",
-    versiculo: '"E Davi disse: Não temas, porque certamente te mostrarei bondade por amor de Jônatas, teu pai."',
-    referencia: "2 Samuel 9:7",
-    reflexao: `Davi e Jônatas fizeram um pacto de amor e lealdade. Jônatas morreu antes de ver seu amigo se tornar rei. Mas Davi não esqueceu. Mesmo depois de anos, ele honrou uma promessa feita a alguém que já não estava mais lá para cobrar.
-    
-Um coração segundo Deus é um coração que cumpre o que promete — não porque alguém está olhando, mas porque a palavra dada tem peso.`,
-    pergunta: "Existe uma promessa, compromisso ou palavra que você deu e ainda não cumpriu? Como você pode honrá-la hoje?",
-    oracao: "Senhor, que minha palavra tenha peso. Que eu seja alguém de quem se pode depender. Faz de mim uma pessoa íntegra, que honra seus compromissos como ato de fé. Amém."
-  },
-  {
-    titulo: "O coração que busca",
-    versiculo: '"Como o cervo anseia pelas correntes das águas, assim a minha alma anseia por Ti, ó Deus."',
-    referencia: "Salmos 42:1",
-    reflexao: `Davi vivia numa saudade de Deus. Mesmo sendo rei, mesmo tendo tudo, havia uma fome que só Deus podia satisfazer. Essa busca não era religiosa — era vital, como sede.
-    
-Em meio às agendas cheias e aos problemas urgentes, o coração segundo Deus mantém acesa uma busca. Não por respostas, mas por presença.`,
-    pergunta: "Quando foi a última vez que você sentiu fome de Deus — não de respostas ou milagres, mas da Sua presença?",
-    oracao: "Pai, desperta em mim essa fome de Ti. Que eu não me contente com respostas quando posso ter Tua presença. Que minha alma Te busque como o cervo busca água. Amém."
-  },
-  {
-    titulo: "O presente do agradecimento",
-    versiculo: '"Dai graças ao Senhor, porque ele é bom; o seu amor dura para sempre."',
-    referencia: "Salmos 118:1",
-    reflexao: `Os Salmos de Davi estão cheios de gratidão no meio da dor. Ele não esperava a situação melhorar para agradecer — ele encontrava razões para louvar mesmo nas cavernas.
-    
-A gratidão não é ingenuidade. É uma escolha de ver o bem quando o caos está presente. É um ato de fé antes de ser um sentimento.`,
-    pergunta: "Liste mentalmente três coisas pequenas e concretas pelas quais você é grata hoje — coisas que você geralmente passa sem notar.",
-    oracao: "Senhor, abre meus olhos para o que é bom na minha vida agora. Que a gratidão seja o chão que me sustenta quando tudo ao redor parece instável. Amém."
-  },
-  {
-    titulo: "Servir sem palco",
-    versiculo: '"O maior entre vós será o vosso servo."',
-    referencia: "Mateus 23:11",
-    reflexao: `Antes de Davi ser rei, ele carregava a armadura de Saul. Ele servia em silêncio, sem reconhecimento, sem promessa de recompensa. O serviço anônimo é um teste de caráter.
-    
-O coração segundo Deus não precisa de palco para agir. Ele age porque é sua natureza — não para ser visto, mas porque há amor.`,
-    pergunta: "Como você se sente quando serve sem ser reconhecido? O que isso revela sobre suas motivações?",
-    oracao: "Pai, purifica minhas motivações. Que eu sirva porque Te amo e amo as pessoas — não para ser visto. Que o serviço anônimo seja meu maior treinamento. Amém."
-  },
-  {
-    titulo: "A paz que escolhemos",
-    versiculo: '"Em paz me deitarei e também dormirei; pois só Tu, Senhor, me fazes habitar em segurança."',
-    referencia: "Salmos 4:8",
-    reflexao: `Davi dormia perseguido, em cavernas, com inimigos em volta. E ainda assim escreveu sobre paz. Essa paz não veio das circunstâncias — veio de uma relação de confiança cultivada ao longo dos anos.
-    
-A paz não é a ausência de problemas. É a presença de Deus em meio aos problemas. É um fruto que cresce devagar, alimentado por escolhas diárias de confiar.`,
-    pergunta: "O que tem roubado sua paz ultimamente? Como você pode ativamente devolver isso nas mãos de Deus hoje?",
-    oracao: "Senhor, recebo a paz que vem de Ti — não como o mundo dá, mas como só Tu podes dar. Confio em Ti com o que não consigo controlar. Amém."
-  },
-  {
-    titulo: "Quando os amigos falham",
-    versiculo: '"Mesmo meu amigo íntimo, em quem eu confiava, que comia do meu pão, levantou o calcanhar contra mim."',
-    referencia: "Salmos 41:9",
-    reflexao: `Davi foi traído por filhos, por conselheiros, por amigos próximos. Ele conhecia a dor que vem de quem deveria estar do seu lado.
-    
-O coração segundo Deus não se fecha para o amor porque foi traído. Ele aprende a distinguir onde depositar confiança — e a manter o coração aberto mesmo quando dói.`,
-    pergunta: "Você está com o coração fechado por causa de uma traição ou decepção? Como Deus te convida a lidar com isso hoje?",
-    oracao: "Pai, cura as feridas que vieram de quem eu amava. Guarda meu coração da amargura e do fechamento. Ensina-me a amar sem me perder. Amém."
-  },
-  {
-    titulo: "O cuidado com os detalhes",
-    versiculo: '"Tudo o que a tua mão encontrar para fazer, faze-o com todo o teu poder."',
-    referencia: "Eclesiastes 9:10",
-    reflexao: `Davi foi fiel nas coisas pequenas: cuidou bem das ovelhas, tocou com dedicação, lutou com garra contra o leão que ninguém viu. O detalhe importa.
-    
-Como você faz as coisas pequenas revela o seu caráter. O que parece insignificante para o mundo pode ser o treino que Deus está usando para te preparar.`,
-    pergunta: "Qual tarefa pequena e sem glamour você tem feito com descuido? Como você pode fazê-la como um ato de adoração?",
-    oracao: "Senhor, que eu seja fiel no pouco. Que o ordinário do meu dia seja feito com excelência como oferta a Ti. Amém."
-  },
-  {
-    titulo: "A voz na solidão",
-    versiculo: '"Clamo a Deus altíssimo, ao Deus que tudo cumpre para mim."',
-    referencia: "Salmos 57:2",
-    reflexao: `Muitos salmos de Davi foram escritos na solidão — em cavernas, no deserto, longe de tudo. Mas a solidão nunca o silenciou. Pelo contrário, foi ali que ele aprendeu a ouvir e a falar com Deus com mais profundidade.
-    
-Solidão não é abandono. Às vezes é o ambiente que Deus escolhe para se revelar de um jeito que o barulho não permite.`,
-    pergunta: "Como você reage à solidão? Você foge ou aprende a habitá-la com Deus?",
-    oracao: "Senhor, ensina-me a habitar os lugares silenciosos sem medo. Que a solidão seja escola, não punição. Que a Tua voz seja mais alta do que o silêncio ao meu redor. Amém."
-  },
-  {
-    titulo: "Generosidade que dói",
-    versiculo: '"Não oferecerei ao Senhor meu Deus holocaustos que não me custem nada."',
-    referencia: "2 Samuel 24:24",
-    reflexao: `Arauná quis dar a Davi a eira de graça para que ele oferecesse sacrifício. Davi recusou. Ele disse: não quero dar a Deus algo que não me custa nada.
-    
-Existe uma generosidade que é confortável demais para ser real. O coração segundo Deus dá quando dói um pouco — seja tempo, dinheiro, conforto ou atenção.`,
-    pergunta: "Quando foi a última vez que você deu algo que realmente te custou? Como seria uma generosidade que de fato pesa?",
-    oracao: "Pai, livra-me da generosidade performática. Que minha oferta seja real — que ela me custe algo e por isso mesmo seja preciosa aos Teus olhos. Amém."
-  },
-  {
-    titulo: "Reconhecer o erro",
-    versiculo: '"Pequei contra o Senhor."',
-    referencia: "2 Samuel 12:13",
-    reflexao: `Quando Natã confrontou Davi com sua história — o homem rico que roubou a única ovelha do pobre — Davi não se defendeu, não justificou, não terceirizou a culpa. Ele disse apenas: "Pequei contra o Senhor."
-    
-Três palavras. Sem desculpa. Essa simplicidade no arrependimento é rara. É maturidade espiritual. É o coração que reconhece a si mesmo.`,
-    pergunta: "Existe algo em sua vida que você tem justificado, mas que, no fundo, sabe que precisa de um 'pequei contra o Senhor'?",
-    oracao: "Senhor, dá-me coragem de ser honesto comigo mesmo e contigo. Que meu arrependimento seja real, não apenas verbal. Amém."
-  },
-  {
-    titulo: "Metade da jornada",
-    versiculo: '"Os que esperam no Senhor renovam as suas forças; sobem com asas como águias; correm e não se cansam; caminham e não se fatigam."',
-    referencia: "Isaías 40:31",
-    reflexao: `Você está na metade desta jornada. Vinte dias de intenção, de pausa, de busca. Isso não é pouco — é uma escolha repetida dia após dia.
-    
-Não é sobre perfeição. É sobre perseverança. Sobre acordar de novo, abrir de novo, buscar de novo. O coração segundo Deus não é o que nunca cansa — é o que encontra forças renovadas no Senhor.`,
-    pergunta: "O que você descobriu sobre si mesma nesses primeiros 20 dias? O que Deus tem mostrado ao longo dessa jornada?",
-    oracao: "Pai, obrigada pela força renovada a cada manhã. Que a segunda metade desta jornada seja ainda mais profunda do que a primeira. Estou aqui. Continuo. Amém."
-  },
+  { titulo: "O que os olhos não veem", versiculo: '"O Senhor não vê como o homem vê; o homem vê o exterior, mas o Senhor vê o coração."', referencia: "1 Samuel 16:7", reflexao: `Sete irmãos passaram diante de Samuel e nenhum era o escolhido. Todos impressionantes, altos, capazes. Mas Deus olhava para algo que nenhum deles mostrava por fora: o interior.<br><br>Quantas vezes nos esforçamos para parecer o que ainda não somos? Hoje, o convite é descansar da performance. Deus já te vê — não o que você projeta, mas o que você é. E ainda assim, te escolhe.`, pergunta: "Existe alguma área da sua vida onde você está tentando impressionar mais do que simplesmente ser?", oracao: "Pai, que meu coração seja mais real diante de Ti do que minha aparência diante dos homens. Ensina-me a viver de dentro para fora. Amém." },
+  { titulo: "A arpa antes da batalha", versiculo: '"Louvai ao Senhor com harpa; cantai-lhe com o saltério de dez cordas."', referencia: "Salmos 33:2", reflexao: `Davi era músico antes de ser rei. Antes de enfrentar Golias, ele havia passado anos aprendendo a adorar. A arpa não era apenas um instrumento — era a linguagem do coração de Davi com Deus.<br><br>Toda grande batalha começa numa adoração silenciosa e anônima. O que você está cultivando agora, longe dos olhos de todos, é o que te sustentará nas horas difíceis.`, pergunta: "Qual é a sua 'arpa' — como você se conecta com Deus no dia a dia, longe dos olhos de todos?", oracao: "Senhor, que minha adoração seja real, não apenas pública. Que eu saiba Te adorar no silêncio do campo, antes de qualquer palco. Amém." },
+  { titulo: "Confiar quando não entende", versiculo: '"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento."', referencia: "Provérbios 3:5", reflexao: `Davi foi ungido rei quando tinha uns 15 anos. Mas passou mais de uma década fugindo, escondendo-se em cavernas, sendo perseguido por Saul. O intervalo entre a promessa e o cumprimento foi cheio de silêncio de Deus.<br><br>Confiar não é entender. É escolher permanecer fiel mesmo quando o caminho não faz sentido. A espera de Davi não foi passiva — ele escolhia ativamente honrar a Deus em cada caverna.`, pergunta: "Há uma promessa ou sonho que Deus colocou em você mas que ainda não se cumpriu? Como você está lidando com essa espera?", oracao: "Senhor, ajuda-me a confiar no Teu tempo. Que eu não corra à frente de Ti nem desanime na espera. Que a espera me molde, não me amargure. Amém." },
+  { titulo: "Honrar a quem te faz mal", versiculo: '"Longe de mim, que eu faça isso ao meu senhor, o ungido do Senhor, que eu estenda a minha mão contra ele."', referencia: "1 Samuel 24:6", reflexao: `Davi teve Saul na mão — duas vezes. Poderia ter matado quem tentava matar ele. Mas não fez isso. Por quê? Porque escolheu honrar a unção, mesmo num homem que havia falhado.<br><br>Ter caráter é especialmente difícil quando a outra pessoa não merece. O coração de Deus é um coração que honra mesmo quando não é honrado. Isso é raro. E é exatamente o que nos transforma.`, pergunta: "Há alguém em sua vida que te feriu e que você ainda precisa aprender a honrar ou perdoar — não pelo que merecem, mas pelo que Deus pede de você?", oracao: "Pai, dá-me um coração generoso como o de Davi. Que eu não me veje de quem me fez mal. Que o meu caráter não seja definido pelas falhas dos outros, mas pela Tua graça em mim. Amém." },
+  { titulo: "Dançar sem vergonha", versiculo: '"E Davi dançava com toda a força diante do Senhor."', referencia: "2 Samuel 6:14", reflexao: `Quando a arca do Senhor entrou em Jerusalém, Davi dançou. Sua esposa Mical o viu e sentiu vergonha. Mas Davi disse: "Ainda me farei mais vil do que isso." Para ele, a adoração era mais importante que a imagem.<br><br>Existe uma adoração que vive dentro de nós, mas que calamos por medo do julgamento. Hoje, o convite é deixar esse coração se expressar — na oração, na gratidão, na entrega.`, pergunta: "Existe algo que você gostaria de expressar a Deus mas que a vergonha ou o que os outros pensam tem bloqueado?", oracao: "Senhor, liberta meu coração de qualquer performance. Que eu Te adore em espírito e em verdade, sem me importar com a aprovação alheia. Amém." },
+  { titulo: "A bondade que transborda", versiculo: '"Existe ainda alguém da casa de Saul, para quem eu possa mostrar bondade?"', referencia: "2 Samuel 9:1", reflexao: `Quando Davi se estabeleceu como rei, a primeira coisa que perguntou foi: tem alguém da família do meu inimigo que eu possa abençoar? Mefiboséte, filho de Jônatas, vivia escondido, com medo. E Davi o trouxe para a mesa real.<br><br>O coração segundo Deus não esquece os excluídos. Quem você está esquecendo? Quem está escondido ao redor de você, esperando um ato de bondade inesperado?`, pergunta: "Quem em sua vida poderia ser 'trazido à sua mesa' — receber sua atenção, afeto ou bondade hoje?", oracao: "Pai, dá-me olhos para enxergar os invisíveis ao meu redor. Que minha mesa seja grande como a de Davi — com lugar para quem menos espera. Amém." },
+  { titulo: "A queda e o retorno", versiculo: '"Porque o justo cai sete vezes e se levanta; mas os ímpios tropeçam no mal."', referencia: "Provérbios 24:16", reflexao: `Davi pecou. Gravemente. O caso com Bate-Seba não foi um deslize pequeno. Mas a história de Davi não terminou aí — ela continuou depois do Salmo 51.<br><br>O que diferencia um coração segundo Deus não é a ausência de quedas, é a disposição de se levantar. Deus não busca perfeição — busca um coração que, ao perceber que errou, corre de volta a Ele.`, pergunta: "Você está carregando culpa de algo que Deus já perdoou? O que te impede de se levantar e continuar?", oracao: "Senhor, que o meu erro não defina minha história. Que o Teu perdão seja maior que a minha vergonha. Ajuda-me a me levantar e a caminhar de novo. Amém." },
+  { titulo: "O peso da liderança", versiculo: '"Ele os apascentou segundo a integridade do seu coração e os guiou com a destreza das suas mãos."', referencia: "Salmos 78:72", reflexao: `Davi liderou com dois elementos: integridade de coração e habilidade de mãos. Os dois juntos. Não apenas competência técnica sem caráter, e não apenas boas intenções sem preparo.<br><br>Onde quer que você exerça influência — na família, no trabalho, entre amigos — você está liderando. A pergunta não é se você lidera, é como.`, pergunta: "Em qual área da sua vida Deus te pede mais integridade? E em qual te pede mais preparo e habilidade?", oracao: "Pai, que eu lidere com integridade e competência. Que o que faço reflita quem sou por dentro. E que quem eu sou por dentro reflita quem Tu és. Amém." },
+  { titulo: "Guardar a promessa", versiculo: '"E Davi disse: Não temas, porque certamente te mostrarei bondade por amor de Jônatas, teu pai."', referencia: "2 Samuel 9:7", reflexao: `Davi e Jônatas fizeram um pacto de amor e lealdade. Jônatas morreu antes de ver seu amigo se tornar rei. Mas Davi não esqueceu. Mesmo depois de anos, ele honrou uma promessa feita a alguém que já não estava mais lá para cobrar.<br><br>Um coração segundo Deus é um coração que cumpre o que promete — não porque alguém está olhando, mas porque a palavra dada tem peso.`, pergunta: "Existe uma promessa, compromisso ou palavra que você deu e ainda não cumpriu? Como você pode honrá-la hoje?", oracao: "Senhor, que minha palavra tenha peso. Que eu seja alguém de quem se pode depender. Faz de mim uma pessoa íntegra, que honra seus compromissos como ato de fé. Amém." },
+  { titulo: "O coração que busca", versiculo: '"Como o cervo anseia pelas correntes das águas, assim a minha alma anseia por Ti, ó Deus."', referencia: "Salmos 42:1", reflexao: `Davi vivia numa saudade de Deus. Mesmo sendo rei, mesmo tendo tudo, havia uma fome que só Deus podia satisfazer. Essa busca não era religiosa — era vital, como sede.<br><br>Em meio às agendas cheias e aos problemas urgentes, o coração segundo Deus mantém acesa uma busca. Não por respostas, mas por presença.`, pergunta: "Quando foi a última vez que você sentiu fome de Deus — não de respostas ou milagres, mas da Sua presença?", oracao: "Pai, desperta em mim essa fome de Ti. Que eu não me contente com respostas quando posso ter Tua presença. Que minha alma Te busque como o cervo busca água. Amém." },
+  { titulo: "O presente do agradecimento", versiculo: '"Dai graças ao Senhor, porque ele é bom; o seu amor dura para sempre."', referencia: "Salmos 118:1", reflexao: `Os Salmos de Davi estão cheios de gratidão no meio da dor. Ele não esperava a situação melhorar para agradecer — ele encontrava razões para louvar mesmo nas cavernas.<br><br>A gratidão não é ingenuidade. É uma escolha de ver o bem quando o caos está presente. É um ato de fé antes de ser um sentimento.`, pergunta: "Liste mentalmente três coisas pequenas e concretas pelas quais você é grata hoje — coisas que você geralmente passa sem notar.", oracao: "Senhor, abre meus olhos para o que é bom na minha vida agora. Que a gratidão seja o chão que me sustenta quando tudo ao redor parece instável. Amém." },
+  { titulo: "Servir sem palco", versiculo: '"O maior entre vós será o vosso servo."', referencia: "Mateus 23:11", reflexao: `Antes de Davi ser rei, ele carregava a armadura de Saul. Ele servia em silêncio, sem reconhecimento, sem promessa de recompensa. O serviço anônimo é um teste de caráter.<br><br>O coração segundo Deus não precisa de palco para agir. Ele age porque é sua natureza — não para ser visto, mas porque há amor.`, pergunta: "Como você se sente quando serve sem ser reconhecido? O que isso revela sobre suas motivações?", oracao: "Pai, purifica minhas motivações. Que eu sirva porque Te amo e amo as pessoas — não para ser visto. Que o serviço anônimo seja meu maior treinamento. Amém." },
+  { titulo: "A paz que escolhemos", versiculo: '"Em paz me deitarei e também dormirei; pois só Tu, Senhor, me fazes habitar em segurança."', referencia: "Salmos 4:8", reflexao: `Davi dormia perseguido, em cavernas, com inimigos em volta. E ainda assim escreveu sobre paz. Essa paz não veio das circunstâncias — veio de uma relação de confiança cultivada ao longo dos anos.<br><br>A paz não é a ausência de problemas. É a presença de Deus em meio aos problemas. É um fruto que cresce devagar, alimentado por escolhas diárias de confiar.`, pergunta: "O que tem roubado sua paz ultimamente? Como você pode ativamente devolver isso nas mãos de Deus hoje?", oracao: "Senhor, recebo a paz que vem de Ti — não como o mundo dá, mas como só Tu podes dar. Confio em Ti com o que não consigo controlar. Amém." },
+  { titulo: "Quando os amigos falham", versiculo: '"Mesmo meu amigo íntimo, em quem eu confiava, que comia do meu pão, levantou o calcanhar contra mim."', referencia: "Salmos 41:9", reflexao: `Davi foi traído por filhos, por conselheiros, por amigos próximos. Ele conhecia a dor que vem de quem deveria estar do seu lado.<br><br>O coração segundo Deus não se fecha para o amor porque foi traído. Ele aprende a distinguir onde depositar confiança — e a manter o coração aberto mesmo quando dói.`, pergunta: "Você está com o coração fechado por causa de uma traição ou decepção? Como Deus te convida a lidar com isso hoje?", oracao: "Pai, cura as feridas que vieram de quem eu amava. Guarda meu coração da amargura e do fechamento. Ensina-me a amar sem me perder. Amém." },
+  { titulo: "O cuidado com os detalhes", versiculo: '"Tudo o que a tua mão encontrar para fazer, faze-o com todo o teu poder."', referencia: "Eclesiastes 9:10", reflexao: `Davi foi fiel nas coisas pequenas: cuidou bem das ovelhas, tocou com dedicação, lutou com garra contra o leão que ninguém viu. O detalhe importa.<br><br>Como você faz as coisas pequenas revela o seu caráter. O que parece insignificante para o mundo pode ser o treino que Deus está usando para te preparar.`, pergunta: "Qual tarefa pequena e sem glamour você tem feito com descuido? Como você pode fazê-la como um ato de adoração?", oracao: "Senhor, que eu seja fiel no pouco. Que o ordinário do meu dia seja feito com excelência como oferta a Ti. Amém." },
+  { titulo: "A voz na solidão", versiculo: '"Clamo a Deus altíssimo, ao Deus que tudo cumpre para mim."', referencia: "Salmos 57:2", reflexao: `Muitos salmos de Davi foram escritos na solidão — em cavernas, no deserto, longe de tudo. Mas a solidão nunca o silenciou. Pelo contrário, foi ali que ele aprendeu a ouvir e a falar com Deus com mais profundidade.<br><br>Solidão não é abandono. Às vezes é o ambiente que Deus escolhe para se revelar de um jeito que o barulho não permite.`, pergunta: "Como você reage à solidão? Você foge ou aprende a habitá-la com Deus?", oracao: "Senhor, ensina-me a habitar os lugares silenciosos sem medo. Que a solidão seja escola, não punição. Que a Tua voz seja mais alta do que o silêncio ao meu redor. Amém." },
+  { titulo: "Generosidade que dói", versiculo: '"Não oferecerei ao Senhor meu Deus holocaustos que não me custem nada."', referencia: "2 Samuel 24:24", reflexao: `Arauná quis dar a Davi a eira de graça para que ele oferecesse sacrifício. Davi recusou. Ele disse: não quero dar a Deus algo que não me custa nada.<br><br>Existe uma generosidade que é confortável demais para ser real. O coração segundo Deus dá quando dói um pouco — seja tempo, dinheiro, conforto ou atenção.`, pergunta: "Quando foi a última vez que você deu algo que realmente te custou? Como seria uma generosidade que de fato pesa?", oracao: "Pai, livra-me da generosidade performática. Que minha oferta seja real — que ela me custe algo e por isso mesmo seja preciosa aos Teus olhos. Amém." },
+  { titulo: "Reconhecer o erro", versiculo: '"Pequei contra o Senhor."', referencia: "2 Samuel 12:13", reflexao: `Quando Natã confrontou Davi com sua história — o homem rico que roubou a única ovelha do pobre — Davi não se defendeu, não justificou, não terceirizou a culpa. Ele disse apenas: "Pequei contra o Senhor."<br><br>Três palavras. Sem desculpa. Essa simplicidade no arrependimento é rara. É maturidade espiritual. É o coração que reconhece a si mesmo.`, pergunta: "Existe algo em sua vida que você tem justificado, mas que, no fundo, sabe que precisa de um 'pequei contra o Senhor'?", oracao: "Senhor, dá-me coragem de ser honesto comigo mesmo e contigo. Que meu arrependimento seja real, não apenas verbal. Amém." },
+  { titulo: "Metade da jornada", versiculo: '"Os que esperam no Senhor renovam as suas forças; sobem com asas como águias; correm e não se cansam; caminham e não se fatigam."', referencia: "Isaías 40:31", reflexao: `Você está na metade desta jornada. Vinte dias de intenção, de pausa, de busca. Isso não é pouco — é uma escolha repetida dia após dia.<br><br>Não é sobre perfeição. É sobre perseverança. Sobre acordar de novo, abrir de novo, buscar de novo. O coração segundo Deus não é o que nunca cansa — é o que encontra forças renovadas no Senhor.`, pergunta: "O que você descobriu sobre si mesma nesses primeiros 20 dias? O que Deus tem mostrado ao longo dessa jornada?", oracao: "Pai, obrigada pela força renovada a cada manhã. Que a segunda metade desta jornada seja ainda mais profunda do que a primeira. Estou aqui. Continuo. Amém." },
 ];
 
-// Preencher com meditações padrão para os dias 21-40
-for (let i = 20; i < 40; i++) {
-  if (!meditacoes[i]) {
-    const temas = [
-      { titulo: "Ouvir antes de agir", versiculo: '"Falai, Senhor, porque o vosso servo ouve."', referencia: "1 Samuel 3:10" },
-      { titulo: "O coração que louva na tribulação", versiculo: '"Bendirei o Senhor em todos os tempos."', referencia: "Salmos 34:1" },
-      { titulo: "Guardar o coração", versiculo: '"Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as fontes da vida."', referencia: "Provérbios 4:23" },
-      { titulo: "A força na fraqueza", versiculo: '"Quando sou fraco, então sou forte."', referencia: "2 Coríntios 12:10" },
-      { titulo: "Amor que não pede nada", versiculo: '"O amor é paciente, o amor é bondoso."', referencia: "1 Coríntios 13:4" },
-      { titulo: "Fidelidade no escondido", versiculo: '"Quem é fiel no mínimo também é fiel no muito."', referencia: "Lucas 16:10" },
-      { titulo: "Perdoar de verdade", versiculo: '"Sede bondosos uns para com os outros, compassivos, perdoando-vos mutuamente."', referencia: "Efésios 4:32" },
-      { titulo: "O descanso como confiança", versiculo: '"Em repouso e em confiança está a vossa força."', referencia: "Isaías 30:15" },
-      { titulo: "A boca revela o coração", versiculo: '"O que da boca sai, isso procede do coração."', referencia: "Mateus 15:18" },
-      { titulo: "Servir a Deus nos pequenos", versiculo: '"Tudo o que fizerdes, fazei-o de todo o coração, como ao Senhor."', referencia: "Colossenses 3:23" },
-      { titulo: "Integridade nas sombras", versiculo: '"O homem íntegro anda seguro."', referencia: "Provérbios 10:9" },
-      { titulo: "A alegria como força", versiculo: '"A alegria do Senhor é a vossa força."', referencia: "Neemias 8:10" },
-      { titulo: "Cuidar do outro", versiculo: '"Ninguém busque o seu próprio interesse, mas o de outrem."', referencia: "1 Coríntios 10:24" },
-      { titulo: "O coração que espera", versiculo: '"Aguarda o Senhor; tem bom ânimo e ele fortalecerá o teu coração."', referencia: "Salmos 27:14" },
-      { titulo: "Humildade genuína", versiculo: '"Antes da honra está a humildade."', referencia: "Provérbios 15:33" },
-      { titulo: "A oração que muda tudo", versiculo: '"A oração eficaz do justo pode muito."', referencia: "Tiago 5:16" },
-      { titulo: "Coragem para ser diferente", versiculo: '"Sede fortes e corajosos. Não temais, nem vos espanteis."', referencia: "Josué 1:9" },
-      { titulo: "O legado do coração", versiculo: '"Escolhe hoje a quem sirvas."', referencia: "Josué 24:15" },
-      { titulo: "Renovar a mente", versiculo: '"Sede transformados pela renovação da vossa mente."', referencia: "Romanos 12:2" },
-      { titulo: "40 dias — o início de tudo", versiculo: '"Eis que faço uma coisa nova; não a percebeis vós?"', referencia: "Isaías 43:19" },
-    ];
-    const t = temas[i - 20];
-    meditacoes.push({
-      titulo: t.titulo,
-      versiculo: t.versiculo,
-      referencia: t.referencia,
-      reflexao: `Cada dia desta jornada é um tijolo na construção de um coração segundo Deus. O dia ${i+1} te convida a se aprofundar nessa verdade — não apenas como leitura, mas como prática.\n\nDavi viveu cada atributo de Deus no cotidiano. Não em momentos grandiosos apenas, mas nas escolhas simples de cada manhã. Hoje é mais um desses dias.`,
-      pergunta: "Como essa palavra se aplica ao que você está vivendo hoje — concretamente, nas próximas horas?",
-      oracao: `Senhor, que o Dia ${i+1} seja real para mim — não apenas leitura, mas vida. Que o que leio modele quem eu sou. Amém.`
-    });
-  }
+const temas2 = [
+  { titulo: "Ouvir antes de agir", versiculo: '"Falai, Senhor, porque o vosso servo ouve."', referencia: "1 Samuel 3:10" },
+  { titulo: "O coração que louva na tribulação", versiculo: '"Bendirei o Senhor em todos os tempos."', referencia: "Salmos 34:1" },
+  { titulo: "Guardar o coração", versiculo: '"Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as fontes da vida."', referencia: "Provérbios 4:23" },
+  { titulo: "A força na fraqueza", versiculo: '"Quando sou fraco, então sou forte."', referencia: "2 Coríntios 12:10" },
+  { titulo: "Amor que não pede nada", versiculo: '"O amor é paciente, o amor é bondoso."', referencia: "1 Coríntios 13:4" },
+  { titulo: "Fidelidade no escondido", versiculo: '"Quem é fiel no mínimo também é fiel no muito."', referencia: "Lucas 16:10" },
+  { titulo: "Perdoar de verdade", versiculo: '"Sede bondosos uns para com os outros, compassivos, perdoando-vos mutuamente."', referencia: "Efésios 4:32" },
+  { titulo: "O descanso como confiança", versiculo: '"Em repouso e em confiança está a vossa força."', referencia: "Isaías 30:15" },
+  { titulo: "A boca revela o coração", versiculo: '"O que da boca sai, isso procede do coração."', referencia: "Mateus 15:18" },
+  { titulo: "Servir a Deus nos pequenos", versiculo: '"Tudo o que fizerdes, fazei-o de todo o coração, como ao Senhor."', referencia: "Colossenses 3:23" },
+  { titulo: "Integridade nas sombras", versiculo: '"O homem íntegro anda seguro."', referencia: "Provérbios 10:9" },
+  { titulo: "A alegria como força", versiculo: '"A alegria do Senhor é a vossa força."', referencia: "Neemias 8:10" },
+  { titulo: "Cuidar do outro", versiculo: '"Ninguém busque o seu próprio interesse, mas o de outrem."', referencia: "1 Coríntios 10:24" },
+  { titulo: "O coração que espera", versiculo: '"Aguarda o Senhor; tem bom ânimo e ele fortalecerá o teu coração."', referencia: "Salmos 27:14" },
+  { titulo: "Humildade genuína", versiculo: '"Antes da honra está a humildade."', referencia: "Provérbios 15:33" },
+  { titulo: "A oração que muda tudo", versiculo: '"A oração eficaz do justo pode muito."', referencia: "Tiago 5:16" },
+  { titulo: "Coragem para ser diferente", versiculo: '"Sede fortes e corajosos. Não temais, nem vos espanteis."', referencia: "Josué 1:9" },
+  { titulo: "O legado do coração", versiculo: '"Escolhe hoje a quem sirvas."', referencia: "Josué 24:15" },
+  { titulo: "Renovar a mente", versiculo: '"Sede transformados pela renovação da vossa mente."', referencia: "Romanos 12:2" },
+  { titulo: "40 dias — o início de tudo", versiculo: '"Eis que faço uma coisa nova; não a percebeis vós?"', referencia: "Isaías 43:19" },
+];
+
+for (let i = 0; i < 20; i++) {
+  const t = temas2[i];
+  meditacoes.push({
+    titulo: t.titulo,
+    versiculo: t.versiculo,
+    referencia: t.referencia,
+    reflexao: `Cada dia desta jornada é um tijolo na construção de um coração segundo Deus. O dia ${i+21} te convida a se aprofundar nessa verdade — não apenas como leitura, mas como prática.<br><br>Davi viveu cada atributo de Deus no cotidiano. Não em momentos grandiosos apenas, mas nas escolhas simples de cada manhã. Hoje é mais um desses dias.`,
+    pergunta: "Como essa palavra se aplica ao que você está vivendo hoje — concretamente, nas próximas horas?",
+    oracao: `Senhor, que o Dia ${i+21} seja real para mim — não apenas leitura, mas vida. Que o que leio modele quem eu sou. Amém.`
+  });
 }
 
-// Estado
-let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"completedDays":[], "startDate":null}');
-if (!state.startDate) {
-  state.startDate = new Date().toISOString().split('T')[0];
-  saveState();
-}
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"completedDays":[],"startDate":null}');
+if (!state.startDate) { state.startDate = new Date().toISOString().split('T')[0]; saveState(); }
 
-let currentDay = 1; // Dia selecionado para meditação
+let currentDay = 1;
 
-function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
-
-function getCompletedCount() {
-  return state.completedDays.length;
-}
-
-function isDayDone(day) {
-  return state.completedDays.includes(day);
-}
+function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+function isDayDone(d) { return state.completedDays.includes(d); }
 
 function updateProgress() {
-  const done = getCompletedCount();
+  const done = state.completedDays.length;
   document.getElementById('progress-text').textContent = `${done} / 40 dias`;
   document.getElementById('progress-bar').style.width = `${(done/40)*100}%`;
 }
@@ -661,68 +400,40 @@ function updateProgress() {
 function renderDays() {
   const grid = document.getElementById('days-grid');
   grid.innerHTML = '';
-  
-  // Determine "today" day number based on start date
   const start = new Date(state.startDate);
-  const now = new Date();
-  const diffDays = Math.floor((now - start) / (1000*60*60*24)) + 1;
-  const todayDayNum = Math.max(1, Math.min(diffDays, 40));
-  
+  const diffDays = Math.floor((new Date() - start) / 86400000) + 1;
+  const todayNum = Math.max(1, Math.min(diffDays, 40));
   for (let i = 1; i <= 40; i++) {
     const btn = document.createElement('button');
-    btn.className = 'day-btn';
-    
-    if (isDayDone(i)) {
-      btn.classList.add('done');
-    } else if (i === todayDayNum) {
-      btn.classList.add('today');
-    } else if (i > todayDayNum) {
-      btn.classList.add('future');
-    }
-    
+    btn.className = 'day-btn' + (isDayDone(i) ? ' done' : i === todayNum ? ' today' : i > todayNum ? ' future' : '');
     btn.innerHTML = `<span class="day-num">${i}</span><span class="day-label">dia</span>`;
-    
-    if (i <= todayDayNum) {
-      btn.onclick = () => selectDay(i);
-    }
-    
+    if (i <= todayNum) btn.onclick = () => selectDay(i);
     grid.appendChild(btn);
   }
 }
 
 function selectDay(day) {
   currentDay = day;
-  const med = meditacoes[day - 1];
-  
+  const m = meditacoes[day - 1];
   document.getElementById('med-dia').textContent = `Dia ${day}`;
-  document.getElementById('med-titulo').textContent = med.titulo;
-  document.getElementById('med-versiculo').innerHTML = `${med.versiculo}<cite>— ${med.referencia}</cite>`;
-  document.getElementById('med-reflexao').innerHTML = med.reflexao.replace(/\n\n/g, '<br><br>');
-  document.getElementById('med-reflexao').nextElementSibling.querySelector('p').textContent = med.pergunta;
-  document.getElementById('oracao-text').textContent = med.oracao;
+  document.getElementById('med-titulo').textContent = m.titulo;
+  document.getElementById('med-versiculo').innerHTML = `${m.versiculo}<cite>— ${m.referencia}</cite>`;
+  document.getElementById('med-reflexao').innerHTML = m.reflexao;
+  document.getElementById('med-pergunta-text').textContent = m.pergunta;
+  document.getElementById('oracao-text').textContent = m.oracao;
   document.getElementById('oracao-text').classList.remove('visible');
   document.getElementById('oracao-btn').classList.remove('open');
   document.getElementById('oracao-btn').textContent = '✦ Ver sugestão de oração para hoje';
-  
-  const marcarBtn = document.getElementById('marcar-btn');
-  if (isDayDone(day)) {
-    marcarBtn.textContent = `✓ Dia ${day} concluído!`;
-    marcarBtn.classList.add('marcado');
-  } else {
-    marcarBtn.textContent = `✓ Marcar Dia ${day} como concluído`;
-    marcarBtn.classList.remove('marcado');
-  }
-  
+  const btn = document.getElementById('marcar-btn');
+  if (isDayDone(day)) { btn.textContent = `✓ Dia ${day} concluído!`; btn.classList.add('marcado'); }
+  else { btn.textContent = `✓ Marcar Dia ${day} como concluído`; btn.classList.remove('marcado'); }
   document.getElementById('meditation-box').scrollIntoView({ behavior: 'smooth' });
 }
 
 function marcarDia() {
   if (!isDayDone(currentDay)) {
     state.completedDays.push(currentDay);
-    saveState();
-    updateProgress();
-    renderDays();
-    
+    saveState(); updateProgress(); renderDays();
     const btn = document.getElementById('marcar-btn');
     btn.textContent = `✓ Dia ${currentDay} concluído!`;
     btn.classList.add('marcado');
@@ -730,19 +441,14 @@ function marcarDia() {
 }
 
 function toggleOracao() {
-  const text = document.getElementById('oracao-text');
-  const btn = document.getElementById('oracao-btn');
-  text.classList.toggle('visible');
-  btn.classList.toggle('open');
-  btn.textContent = text.classList.contains('visible') 
-    ? '✦ Fechar sugestão de oração' 
-    : '✦ Ver sugestão de oração para hoje';
+  const t = document.getElementById('oracao-text');
+  const b = document.getElementById('oracao-btn');
+  t.classList.toggle('visible');
+  b.classList.toggle('open');
+  b.textContent = t.classList.contains('visible') ? '✦ Fechar sugestão de oração' : '✦ Ver sugestão de oração para hoje';
 }
 
-// Init
-updateProgress();
-renderDays();
-selectDay(1);
+updateProgress(); renderDays(); selectDay(1);
 </script>
 </body>
 </html>
