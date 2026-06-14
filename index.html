@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- PWA / Tela inicial do celular -->
+<title>40 Dias — Segundo o Coração de Deus</title>
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#5C2B0A">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="40 Dias ♡">
-<meta name="theme-color" content="#5C2B0A">
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj4KICA8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjI0IiBmaWxsPSIjNUMyQjBBIi8+CiAgPHJlY3QgeD0iOCIgeT0iOCIgd2lkdGg9IjEwNCIgaGVpZ2h0PSIxMDQiIHJ4PSIxOCIgZmlsbD0iI0Q0NjIyQSIvPgogIDx0ZXh0IHg9IjYwIiB5PSI2OCIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iNTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj7imaE8L3RleHQ+CiAgPHRleHQgeD0iNjAiIHk9Ijk4IiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjgpIiBmb250LXN0eWxlPSJpdGFsaWMiPjQwIGRpYXM8L3RleHQ+Cjwvc3ZnPg==">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMTIwIj4KICA8cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgcng9IjI0IiBmaWxsPSIjNUMyQjBBIi8+CiAgPHJlY3QgeD0iOCIgeT0iOCIgd2lkdGg9IjEwNCIgaGVpZ2h0PSIxMDQiIHJ4PSIxOCIgZmlsbD0iI0Q0NjIyQSIvPgogIDx0ZXh0IHg9IjYwIiB5PSI2OCIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iNTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj7imaE8L3RleHQ+CiAgPHRleHQgeD0iNjAiIHk9Ijk4IiBmb250LWZhbWlseT0iR2VvcmdpYSxzZXJpZiIgZm9udC1zaXplPSIxMiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjgpIiBmb250LXN0eWxlPSJpdGFsaWMiPjQwIGRpYXM8L3RleHQ+Cjwvc3ZnPg==">
-
-<title>40 Dias — Segundo o Coração de Deus</title>
+<meta name="apple-mobile-web-app-title" content="40 Dias">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -631,30 +631,17 @@ for (let i = 20; i < 40; i++) {
   }
 }
 
-// Estado — usa localStorage com fallback gracioso
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  return { completedDays: [], startDate: null };
-}
-
-let state = loadState();
+// Estado
+let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"completedDays":[], "startDate":null}');
 if (!state.startDate) {
-  // Data de início: 08/06/2025 (dia 1 foi ontem)
-  state.startDate = '2025-06-08';
+  state.startDate = new Date().toISOString().split('T')[0];
   saveState();
 }
 
-let currentDay = 1;
+let currentDay = 1; // Dia selecionado para meditação
 
 function saveState() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch(e) {
-    // fallback silencioso se localStorage não disponível
-  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
 function getCompletedCount() {
@@ -663,17 +650,6 @@ function getCompletedCount() {
 
 function isDayDone(day) {
   return state.completedDays.includes(day);
-}
-
-function getTodayDayNum() {
-  // Calcula qual é o "dia da jornada" hoje com base na data de início
-  const start = new Date(state.startDate + 'T00:00:00');
-  const now = new Date();
-  // Zera horas para comparar apenas datas
-  const nowDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const startDate = new Date(start.getFullYear(), start.getMonth(), start.getDate());
-  const diffDays = Math.floor((nowDate - startDate) / (1000*60*60*24)) + 1;
-  return Math.max(1, Math.min(diffDays, 40));
 }
 
 function updateProgress() {
@@ -686,7 +662,11 @@ function renderDays() {
   const grid = document.getElementById('days-grid');
   grid.innerHTML = '';
   
-  const todayDayNum = getTodayDayNum();
+  // Determine "today" day number based on start date
+  const start = new Date(state.startDate);
+  const now = new Date();
+  const diffDays = Math.floor((now - start) / (1000*60*60*24)) + 1;
+  const todayDayNum = Math.max(1, Math.min(diffDays, 40));
   
   for (let i = 1; i <= 40; i++) {
     const btn = document.createElement('button');
@@ -699,11 +679,9 @@ function renderDays() {
     } else if (i > todayDayNum) {
       btn.classList.add('future');
     }
-    // dias passados não marcados ficam acessíveis (sem classe extra)
     
     btn.innerHTML = `<span class="day-num">${i}</span><span class="day-label">dia</span>`;
     
-    // Todos os dias até hoje são clicáveis
     if (i <= todayDayNum) {
       btn.onclick = () => selectDay(i);
     }
