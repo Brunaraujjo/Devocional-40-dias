@@ -368,8 +368,20 @@ for (let i = 0; i < 20; i++) {
   });
 }
 
+const DATA_INICIO = '2026-06-08';
+const DIAS_CONCLUIDOS_INICIAIS = [1, 2, 3, 4, 5, 6]; // 08/06 a 13/06
+
 let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"completedDays":[],"startDate":null}');
-if (!state.startDate) { state.startDate = new Date().toISOString().split('T')[0]; saveState(); }
+
+// Garante data de início correta
+if (!state.startDate || state.startDate !== DATA_INICIO) {
+  state.startDate = DATA_INICIO;
+  // Mescla dias pré-marcados com qualquer progresso existente
+  const jaExistentes = new Set(state.completedDays);
+  DIAS_CONCLUIDOS_INICIAIS.forEach(d => jaExistentes.add(d));
+  state.completedDays = Array.from(jaExistentes).sort((a, b) => a - b);
+  saveState();
+}
 
 let currentDay = 1;
 
@@ -433,7 +445,15 @@ function toggleOracao() {
   b.textContent = t.classList.contains('visible') ? '✦ Fechar sugestão de oração' : '✦ Ver sugestão de oração para hoje';
 }
 
-updateProgress(); renderDays(); selectDay(1);
+function getDiaAtual() {
+  const start = new Date(state.startDate + 'T00:00:00');
+  const hoje = new Date();
+  hoje.setHours(0, 0, 0, 0);
+  const diff = Math.floor((hoje - start) / 86400000) + 1;
+  return Math.max(1, Math.min(diff, 40));
+}
+
+updateProgress(); renderDays(); selectDay(getDiaAtual());
 </script>
 </body>
 </html>
