@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>40 Dias — Segundo o Coração de Deus</title>
+<title>60 Dias — Palavra e Louvor</title>
 <meta name="theme-color" content="#FEF2E0">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="40 Dias">
+<meta name="apple-mobile-web-app-title" content="60 Dias">
 
 <script>
 (function(){
@@ -22,9 +22,9 @@
 
   // Manifest inline
   const manifest = {
-    name: "40 Dias — Segundo o Coração de Deus",
+    name: "60 Dias — Palavra e Louvor",
     short_name: "Devocional",
-    description: "Devocional de 40 dias baseado na vida de Davi",
+    description: "Devocional diário de 60 dias com palavra do dia e indicação de louvor",
     start_url: "./",
     display: "standalone",
     background_color: "#FEF2E0",
@@ -211,26 +211,10 @@
     color: var(--marrom);
   }
   .med-versiculo cite { display: block; margin-top: 6px; font-size: 0.75rem; color: var(--ouro); font-style: normal; font-weight: 500; }
-  .med-reflexao { font-size: 0.87rem; line-height: 1.7; color: #4a2010; margin-bottom: 16px; }
-  .med-pergunta { background: linear-gradient(135deg, rgba(212,98,42,0.08), rgba(201,146,58,0.08)); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
-  .med-pergunta p { font-size: 0.83rem; color: var(--marrom); line-height: 1.6; font-style: italic; }
-  .med-pergunta p::before { content: '🕊 '; }
-  .med-oracao-btn {
-    width: 100%;
-    background: transparent;
-    border: 1.5px dashed var(--laranja-claro);
-    border-radius: 10px;
-    padding: 12px;
-    color: var(--laranja);
-    font-family: 'Lora', serif;
-    font-size: 0.82rem;
-    font-style: italic;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .med-oracao-btn:hover, .med-oracao-btn.open { background: var(--laranja-fundo); border-style: solid; }
-  .med-oracao { display: none; margin-top: 12px; font-size: 0.82rem; line-height: 1.7; color: var(--marrom-medio); font-style: italic; padding: 12px; background: var(--laranja-fundo); border-radius: 8px; }
-  .med-oracao.visible { display: block; }
+  .med-explicacao { font-size: 0.87rem; line-height: 1.7; color: #4a2010; margin-bottom: 16px; }
+  .med-louvor { background: linear-gradient(135deg, rgba(212,98,42,0.08), rgba(201,146,58,0.08)); border-radius: 12px; padding: 14px; margin-bottom: 16px; }
+  .med-louvor p { font-size: 0.83rem; color: var(--marrom); line-height: 1.6; font-style: italic; }
+  .med-louvor p::before { content: '🙌 '; }
   .marcar-btn {
     width: 100%;
     padding: 14px;
@@ -269,8 +253,8 @@ const __auth = firebase.auth();
 const __db = firebase.firestore();
 __db.enablePersistence().catch(()=>{});
 
-const __APP_ID = "devocional40dias";
-const __KEY_PREFIXES = ["devocional_40_dias_bruna"];
+const __APP_ID = "devocional60dias";
+const __KEY_PREFIXES = ["devocional_60_dias_bruna"];
 
 function __keyMatches(k){
   return __KEY_PREFIXES.some(p => k === p || k.indexOf(p) === 0);
@@ -329,7 +313,7 @@ function __bootApp(){
 <div id="__authOverlay" style="position:fixed;inset:0;background:#F3F5F2;z-index:99999;display:flex;align-items:center;justify-content:center;padding:24px;font-family:-apple-system,'Inter',sans-serif;">
   <div style="width:100%;max-width:360px;">
     <div style="text-align:center;margin-bottom:22px;">
-      <div style="font-size:22px;font-weight:700;color:#1F4038;">Devocional 40 Dias</div>
+      <div style="font-size:22px;font-weight:700;color:#1F4038;">Devocional 60 Dias</div>
       <div style="font-size:12.5px;color:#6B7A73;margin-top:4px;">Entre com a conta do Livro-Caixa</div>
     </div>
     <div style="display:flex;gap:8px;margin-bottom:16px;">
@@ -353,15 +337,15 @@ function __bootApp(){
 <template id="__appTemplate">
 
 <div class="header">
-  <h1>40 Dias Vivendo<br><span>Segundo o Coração de Deus</span></h1>
-  <p>Kennedy Carvalho • Jornada pessoal de Bruna</p>
-  <div class="versículo-header">"Achei Davi, filho de Jessé, homem segundo o meu coração, que cumprirá toda a minha vontade." — Atos 13:22</div>
+  <h1>60 Dias<br><span>Palavra e Louvor</span></h1>
+  <p>Jornada pessoal de Bruna</p>
+  <div class="versículo-header">"Todos os dias te bendirei, e louvarei o teu nome eterna e perpetuamente." — Salmos 145:2</div>
 </div>
 
 <div class="progress-section">
   <div class="progress-label">
     <span>Sua jornada</span>
-    <strong id="progress-text">0 / 80 dias</strong>
+    <strong id="progress-text">0 / 60 dias</strong>
   </div>
   <div class="progress-bar-bg">
     <div class="progress-bar-fill" id="progress-bar" style="width: 0%"></div>
@@ -369,28 +353,23 @@ function __bootApp(){
 </div>
 
 <div class="days-section">
-  <div class="section-title">Seus 80 dias</div>
+  <div class="section-title">Seus 60 dias</div>
   <div class="days-grid" id="days-grid"></div>
 </div>
 
 <div class="meditation-section" id="meditation-box">
   <div class="meditation-header">
     <span class="dia-badge" id="med-dia">Dia 1</span>
-    <h2 id="med-titulo">Um coração disponível</h2>
+    <h2 id="med-titulo">Palavra do dia</h2>
   </div>
   <div class="meditation-body">
     <div class="med-versiculo" id="med-versiculo">
-      "Cria em mim, ó Deus, um coração puro, e renova dentro de mim um espírito reto."
-      <cite>— Salmos 51:10</cite>
+      <cite>— </cite>
     </div>
-    <div class="med-reflexao" id="med-reflexao">
-      Davi não foi escolhido por ser perfeito — foi escolhido porque seu coração estava disponível.
+    <div class="med-explicacao" id="med-explicacao"></div>
+    <div class="med-louvor">
+      <p id="med-louvor-text"></p>
     </div>
-    <div class="med-pergunta">
-      <p id="med-pergunta-text">O que em sua vida hoje é o seu "campo com as ovelhas"?</p>
-    </div>
-    <button class="med-oracao-btn" id="oracao-btn" onclick="toggleOracao()">✦ Ver sugestão de oração para hoje</button>
-    <div class="med-oracao" id="oracao-text"></div>
     <button class="marcar-btn" id="marcar-btn" onclick="marcarDia()">✓ Marcar Dia 1 como concluído</button>
   </div>
 </div>
@@ -398,400 +377,74 @@ function __bootApp(){
 <footer>Iniciado em 08 de junho de 2025 • com propósito e com fé ♡</footer>
 
 <script>
-const STORAGE_KEY = 'devocional_40_dias_bruna';
-const TOTAL_DIAS = 80;
+const STORAGE_KEY = 'devocional_60_dias_bruna';
+const TOTAL_DIAS = 60;
 
 const meditacoes = [
-  {
-    titulo: "Um coração disponível",
-    versiculo: '"Cria em mim, ó Deus, um coração puro, e renova dentro de mim um espírito reto."',
-    referencia: "Salmos 51:10",
-    reflexao: `Davi não foi escolhido por ser perfeito — foi escolhido porque seu coração estava disponível. Quando Samuel chegou à casa de Jessé, o menor dos filhos nem havia sido chamado para a festa. Davi estava no campo, cuidando das ovelhas, fazendo o simples. E foi lá que Deus o viu.<br><br>O início desta jornada é um convite para você também se fazer disponível. Não com desempenho, não com aparência — mas com o coração virado para Deus, mesmo nas tarefas cotidianas e anônimas.`,
-    pergunta: "O que em sua vida hoje é o seu 'campo com as ovelhas' — aquele lugar simples onde Deus pode te encontrar?",
-    oracao: "Senhor, disponho meu coração diante de Ti. Não venho com conquistas para mostrar, venho como sou. Assim como Tu enxergaste Davi no campo, quero que me encontres no ordinário do meu dia. Cria em mim um coração que Te busca antes de qualquer coisa. Amém."
-  },
-  { titulo: "O que os olhos não veem", versiculo: '"O Senhor não vê como o homem vê; o homem vê o exterior, mas o Senhor vê o coração."', referencia: "1 Samuel 16:7", reflexao: `Sete irmãos passaram diante de Samuel e nenhum era o escolhido. Todos impressionantes, altos, capazes. Mas Deus olhava para algo que nenhum deles mostrava por fora: o interior.<br><br>Quantas vezes nos esforçamos para parecer o que ainda não somos? Hoje, o convite é descansar da performance. Deus já te vê — não o que você projeta, mas o que você é. E ainda assim, te escolhe.`, pergunta: "Existe alguma área da sua vida onde você está tentando impressionar mais do que simplesmente ser?", oracao: "Pai, que meu coração seja mais real diante de Ti do que minha aparência diante dos homens. Ensina-me a viver de dentro para fora. Amém." },
-  { titulo: "A arpa antes da batalha", versiculo: '"Louvai ao Senhor com harpa; cantai-lhe com o saltério de dez cordas."', referencia: "Salmos 33:2", reflexao: `Davi era músico antes de ser rei. Antes de enfrentar Golias, ele havia passado anos aprendendo a adorar. A arpa não era apenas um instrumento — era a linguagem do coração de Davi com Deus.<br><br>Toda grande batalha começa numa adoração silenciosa e anônima. O que você está cultivando agora, longe dos olhos de todos, é o que te sustentará nas horas difíceis.`, pergunta: "Qual é a sua 'arpa' — como você se conecta com Deus no dia a dia, longe dos olhos de todos?", oracao: "Senhor, que minha adoração seja real, não apenas pública. Que eu saiba Te adorar no silêncio do campo, antes de qualquer palco. Amém." },
-  { titulo: "Confiar quando não entende", versiculo: '"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento."', referencia: "Provérbios 3:5", reflexao: `Davi foi ungido rei quando tinha uns 15 anos. Mas passou mais de uma década fugindo, escondendo-se em cavernas, sendo perseguido por Saul. O intervalo entre a promessa e o cumprimento foi cheio de silêncio de Deus.<br><br>Confiar não é entender. É escolher permanecer fiel mesmo quando o caminho não faz sentido. A espera de Davi não foi passiva — ele escolhia ativamente honrar a Deus em cada caverna.`, pergunta: "Há uma promessa ou sonho que Deus colocou em você mas que ainda não se cumpriu? Como você está lidando com essa espera?", oracao: "Senhor, ajuda-me a confiar no Teu tempo. Que eu não corra à frente de Ti nem desanime na espera. Que a espera me molde, não me amargure. Amém." },
-  { titulo: "Honrar a quem te faz mal", versiculo: '"Longe de mim, que eu faça isso ao meu senhor, o ungido do Senhor, que eu estenda a minha mão contra ele."', referencia: "1 Samuel 24:6", reflexao: `Davi teve Saul na mão — duas vezes. Poderia ter matado quem tentava matar ele. Mas não fez isso. Por quê? Porque escolheu honrar a unção, mesmo num homem que havia falhado.<br><br>Ter caráter é especialmente difícil quando a outra pessoa não merece. O coração de Deus é um coração que honra mesmo quando não é honrado. Isso é raro. E é exatamente o que nos transforma.`, pergunta: "Há alguém em sua vida que te feriu e que você ainda precisa aprender a honrar ou perdoar — não pelo que merecem, mas pelo que Deus pede de você?", oracao: "Pai, dá-me um coração generoso como o de Davi. Que eu não me veje de quem me fez mal. Que o meu caráter não seja definido pelas falhas dos outros, mas pela Tua graça em mim. Amém." },
-  { titulo: "Dançar sem vergonha", versiculo: '"E Davi dançava com toda a força diante do Senhor."', referencia: "2 Samuel 6:14", reflexao: `Quando a arca do Senhor entrou em Jerusalém, Davi dançou. Sua esposa Mical o viu e sentiu vergonha. Mas Davi disse: "Ainda me farei mais vil do que isso." Para ele, a adoração era mais importante que a imagem.<br><br>Existe uma adoração que vive dentro de nós, mas que calamos por medo do julgamento. Hoje, o convite é deixar esse coração se expressar — na oração, na gratidão, na entrega.`, pergunta: "Existe algo que você gostaria de expressar a Deus mas que a vergonha ou o que os outros pensam tem bloqueado?", oracao: "Senhor, liberta meu coração de qualquer performance. Que eu Te adore em espírito e em verdade, sem me importar com a aprovação alheia. Amém." },
-  { titulo: "A bondade que transborda", versiculo: '"Existe ainda alguém da casa de Saul, para quem eu possa mostrar bondade?"', referencia: "2 Samuel 9:1", reflexao: `Quando Davi se estabeleceu como rei, a primeira coisa que perguntou foi: tem alguém da família do meu inimigo que eu possa abençoar? Mefiboséte, filho de Jônatas, vivia escondido, com medo. E Davi o trouxe para a mesa real.<br><br>O coração segundo Deus não esquece os excluídos. Quem você está esquecendo? Quem está escondido ao redor de você, esperando um ato de bondade inesperado?`, pergunta: "Quem em sua vida poderia ser 'trazido à sua mesa' — receber sua atenção, afeto ou bondade hoje?", oracao: "Pai, dá-me olhos para enxergar os invisíveis ao meu redor. Que minha mesa seja grande como a de Davi — com lugar para quem menos espera. Amém." },
-  { titulo: "A queda e o retorno", versiculo: '"Porque o justo cai sete vezes e se levanta; mas os ímpios tropeçam no mal."', referencia: "Provérbios 24:16", reflexao: `Davi pecou. Gravemente. O caso com Bate-Seba não foi um deslize pequeno. Mas a história de Davi não terminou aí — ela continuou depois do Salmo 51.<br><br>O que diferencia um coração segundo Deus não é a ausência de quedas, é a disposição de se levantar. Deus não busca perfeição — busca um coração que, ao perceber que errou, corre de volta a Ele.`, pergunta: "Você está carregando culpa de algo que Deus já perdoou? O que te impede de se levantar e continuar?", oracao: "Senhor, que o meu erro não defina minha história. Que o Teu perdão seja maior que a minha vergonha. Ajuda-me a me levantar e a caminhar de novo. Amém." },
-  { titulo: "O peso da liderança", versiculo: '"Ele os apascentou segundo a integridade do seu coração e os guiou com a destreza das suas mãos."', referencia: "Salmos 78:72", reflexao: `Davi liderou com dois elementos: integridade de coração e habilidade de mãos. Os dois juntos. Não apenas competência técnica sem caráter, e não apenas boas intenções sem preparo.<br><br>Onde quer que você exerça influência — na família, no trabalho, entre amigos — você está liderando. A pergunta não é se você lidera, é como.`, pergunta: "Em qual área da sua vida Deus te pede mais integridade? E em qual te pede mais preparo e habilidade?", oracao: "Pai, que eu lidere com integridade e competência. Que o que faço reflita quem sou por dentro. E que quem eu sou por dentro reflita quem Tu és. Amém." },
-  { titulo: "Guardar a promessa", versiculo: '"E Davi disse: Não temas, porque certamente te mostrarei bondade por amor de Jônatas, teu pai."', referencia: "2 Samuel 9:7", reflexao: `Davi e Jônatas fizeram um pacto de amor e lealdade. Jônatas morreu antes de ver seu amigo se tornar rei. Mas Davi não esqueceu. Mesmo depois de anos, ele honrou uma promessa feita a alguém que já não estava mais lá para cobrar.<br><br>Um coração segundo Deus é um coração que cumpre o que promete — não porque alguém está olhando, mas porque a palavra dada tem peso.`, pergunta: "Existe uma promessa, compromisso ou palavra que você deu e ainda não cumpriu? Como você pode honrá-la hoje?", oracao: "Senhor, que minha palavra tenha peso. Que eu seja alguém de quem se pode depender. Faz de mim uma pessoa íntegra, que honra seus compromissos como ato de fé. Amém." },
-  { titulo: "O coração que busca", versiculo: '"Como o cervo anseia pelas correntes das águas, assim a minha alma anseia por Ti, ó Deus."', referencia: "Salmos 42:1", reflexao: `Davi vivia numa saudade de Deus. Mesmo sendo rei, mesmo tendo tudo, havia uma fome que só Deus podia satisfazer. Essa busca não era religiosa — era vital, como sede.<br><br>Em meio às agendas cheias e aos problemas urgentes, o coração segundo Deus mantém acesa uma busca. Não por respostas, mas por presença.`, pergunta: "Quando foi a última vez que você sentiu fome de Deus — não de respostas ou milagres, mas da Sua presença?", oracao: "Pai, desperta em mim essa fome de Ti. Que eu não me contente com respostas quando posso ter Tua presença. Que minha alma Te busque como o cervo busca água. Amém." },
-  { titulo: "O presente do agradecimento", versiculo: '"Dai graças ao Senhor, porque ele é bom; o seu amor dura para sempre."', referencia: "Salmos 118:1", reflexao: `Os Salmos de Davi estão cheios de gratidão no meio da dor. Ele não esperava a situação melhorar para agradecer — ele encontrava razões para louvar mesmo nas cavernas.<br><br>A gratidão não é ingenuidade. É uma escolha de ver o bem quando o caos está presente. É um ato de fé antes de ser um sentimento.`, pergunta: "Liste mentalmente três coisas pequenas e concretas pelas quais você é grata hoje — coisas que você geralmente passa sem notar.", oracao: "Senhor, abre meus olhos para o que é bom na minha vida agora. Que a gratidão seja o chão que me sustenta quando tudo ao redor parece instável. Amém." },
-  { titulo: "Servir sem palco", versiculo: '"O maior entre vós será o vosso servo."', referencia: "Mateus 23:11", reflexao: `Antes de Davi ser rei, ele carregava a armadura de Saul. Ele servia em silêncio, sem reconhecimento, sem promessa de recompensa. O serviço anônimo é um teste de caráter.<br><br>O coração segundo Deus não precisa de palco para agir. Ele age porque é sua natureza — não para ser visto, mas porque há amor.`, pergunta: "Como você se sente quando serve sem ser reconhecido? O que isso revela sobre suas motivações?", oracao: "Pai, purifica minhas motivações. Que eu sirva porque Te amo e amo as pessoas — não para ser visto. Que o serviço anônimo seja meu maior treinamento. Amém." },
-  { titulo: "A paz que escolhemos", versiculo: '"Em paz me deitarei e também dormirei; pois só Tu, Senhor, me fazes habitar em segurança."', referencia: "Salmos 4:8", reflexao: `Davi dormia perseguido, em cavernas, com inimigos em volta. E ainda assim escreveu sobre paz. Essa paz não veio das circunstâncias — veio de uma relação de confiança cultivada ao longo dos anos.<br><br>A paz não é a ausência de problemas. É a presença de Deus em meio aos problemas. É um fruto que cresce devagar, alimentado por escolhas diárias de confiar.`, pergunta: "O que tem roubado sua paz ultimamente? Como você pode ativamente devolver isso nas mãos de Deus hoje?", oracao: "Senhor, recebo a paz que vem de Ti — não como o mundo dá, mas como só Tu podes dar. Confio em Ti com o que não consigo controlar. Amém." },
-  { titulo: "Quando os amigos falham", versiculo: '"Mesmo meu amigo íntimo, em quem eu confiava, que comia do meu pão, levantou o calcanhar contra mim."', referencia: "Salmos 41:9", reflexao: `Davi foi traído por filhos, por conselheiros, por amigos próximos. Ele conhecia a dor que vem de quem deveria estar do seu lado.<br><br>O coração segundo Deus não se fecha para o amor porque foi traído. Ele aprende a distinguir onde depositar confiança — e a manter o coração aberto mesmo quando dói.`, pergunta: "Você está com o coração fechado por causa de uma traição ou decepção? Como Deus te convida a lidar com isso hoje?", oracao: "Pai, cura as feridas que vieram de quem eu amava. Guarda meu coração da amargura e do fechamento. Ensina-me a amar sem me perder. Amém." },
-  { titulo: "O cuidado com os detalhes", versiculo: '"Tudo o que a tua mão encontrar para fazer, faze-o com todo o teu poder."', referencia: "Eclesiastes 9:10", reflexao: `Davi foi fiel nas coisas pequenas: cuidou bem das ovelhas, tocou com dedicação, lutou com garra contra o leão que ninguém viu. O detalhe importa.<br><br>Como você faz as coisas pequenas revela o seu caráter. O que parece insignificante para o mundo pode ser o treino que Deus está usando para te preparar.`, pergunta: "Qual tarefa pequena e sem glamour você tem feito com descuido? Como você pode fazê-la como um ato de adoração?", oracao: "Senhor, que eu seja fiel no pouco. Que o ordinário do meu dia seja feito com excelência como oferta a Ti. Amém." },
-  { titulo: "A voz na solidão", versiculo: '"Clamo a Deus altíssimo, ao Deus que tudo cumpre para mim."', referencia: "Salmos 57:2", reflexao: `Muitos salmos de Davi foram escritos na solidão — em cavernas, no deserto, longe de tudo. Mas a solidão nunca o silenciou. Pelo contrário, foi ali que ele aprendeu a ouvir e a falar com Deus com mais profundidade.<br><br>Solidão não é abandono. Às vezes é o ambiente que Deus escolhe para se revelar de um jeito que o barulho não permite.`, pergunta: "Como você reage à solidão? Você foge ou aprende a habitá-la com Deus?", oracao: "Senhor, ensina-me a habitar os lugares silenciosos sem medo. Que a solidão seja escola, não punição. Que a Tua voz seja mais alta do que o silêncio ao meu redor. Amém." },
-  { titulo: "Generosidade que dói", versiculo: '"Não oferecerei ao Senhor meu Deus holocaustos que não me custem nada."', referencia: "2 Samuel 24:24", reflexao: `Arauná quis dar a Davi a eira de graça para que ele oferecesse sacrifício. Davi recusou. Ele disse: não quero dar a Deus algo que não me custa nada.<br><br>Existe uma generosidade que é confortável demais para ser real. O coração segundo Deus dá quando dói um pouco — seja tempo, dinheiro, conforto ou atenção.`, pergunta: "Quando foi a última vez que você deu algo que realmente te custou? Como seria uma generosidade que de fato pesa?", oracao: "Pai, livra-me da generosidade performática. Que minha oferta seja real — que ela me custe algo e por isso mesmo seja preciosa aos Teus olhos. Amém." },
-  { titulo: "Reconhecer o erro", versiculo: '"Pequei contra o Senhor."', referencia: "2 Samuel 12:13", reflexao: `Quando Natã confrontou Davi com sua história — o homem rico que roubou a única ovelha do pobre — Davi não se defendeu, não justificou, não terceirizou a culpa. Ele disse apenas: "Pequei contra o Senhor."<br><br>Três palavras. Sem desculpa. Essa simplicidade no arrependimento é rara. É maturidade espiritual. É o coração que reconhece a si mesmo.`, pergunta: "Existe algo em sua vida que você tem justificado, mas que, no fundo, sabe que precisa de um 'pequei contra o Senhor'?", oracao: "Senhor, dá-me coragem de ser honesto comigo mesmo e contigo. Que meu arrependimento seja real, não apenas verbal. Amém." },
-  { titulo: "Metade da jornada", versiculo: '"Os que esperam no Senhor renovam as suas forças; sobem com asas como águias; correm e não se cansam; caminham e não se fatigam."', referencia: "Isaías 40:31", reflexao: `Você está na metade desta jornada. Vinte dias de intenção, de pausa, de busca. Isso não é pouco — é uma escolha repetida dia após dia.<br><br>Não é sobre perfeição. É sobre perseverança. Sobre acordar de novo, abrir de novo, buscar de novo. O coração segundo Deus não é o que nunca cansa — é o que encontra forças renovadas no Senhor.`, pergunta: "O que você descobriu sobre si mesma nesses primeiros 20 dias? O que Deus tem mostrado ao longo dessa jornada?", oracao: "Pai, obrigada pela força renovada a cada manhã. Que a segunda metade desta jornada seja ainda mais profunda do que a primeira. Estou aqui. Continuo. Amém." },
+  { titulo: 'Fé', versiculo: '"Ora, a fé é a certeza daquilo que esperamos e a prova das coisas que não vemos."', referencia: 'Hebreus 11:1', louvor: 'Louve a Deus hoje porque Ele é digno de confiança mesmo antes de você ver o resultado.' , explicacao: 'Fé não é a ausência de dúvida, é escolher confiar em Deus mesmo sem enxergar o caminho inteiro. Ela cresce nas pequenas decisões diárias de entregar o que você não controla.' },
+  { titulo: 'Esperança', versiculo: '"Porque eu bem sei os pensamentos que tenho a vosso respeito, diz o Senhor; pensamentos de paz, e não de mal, para vos dar o fim que esperais."', referencia: 'Jeremias 29:11', louvor: 'Agradeça ao Senhor por Ele já ter um propósito de bem preparado para o seu futuro.' , explicacao: 'Esperança não nega a dificuldade do presente, mas recusa acreditar que ela é o fim da história. É o que sustenta o coração enquanto Deus ainda está trabalhando.' },
+  { titulo: 'Amor', versiculo: '"Nós o amamos a ele, porque ele nos amou primeiro."', referencia: '1 João 4:19', louvor: 'Adore a Deus pelo amor que Ele derramou sobre você antes mesmo de você buscá-lo.' , explicacao: 'O amor de Deus não depende do seu desempenho. Ele amou primeiro, sem condição, e é esse amor que dá segurança para amar os outros sem medo.' },
+  { titulo: 'Gratidão', versiculo: '"Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco."', referencia: '1 Tessalonicenses 5:18', louvor: 'Bendiga o Senhor por três coisas simples do seu dia que normalmente passam despercebidas.' , explicacao: 'Gratidão é um exercício de atenção: parar e reconhecer o que já é bom, mesmo em meio ao que ainda falta. Ela muda a forma como você enxerga o seu dia.' },
+  { titulo: 'Paz', versiculo: '"Deixo-vos a paz, a minha paz vos dou; não vo-la dou como o mundo a dá."', referencia: 'João 14:27', louvor: 'Exalte a Deus pela paz que Ele oferece, diferente de qualquer coisa que o mundo pode dar.' , explicacao: 'A paz que Deus oferece não vem de circunstâncias perfeitas, vem de uma relação de confiança com Ele. É possível estar em paz mesmo em meio à tempestade.' },
+  { titulo: 'Alegria', versiculo: '"A alegria do Senhor é a vossa força."', referencia: 'Neemias 8:10', louvor: 'Cante ao Senhor com alegria, reconhecendo que a força de hoje vem d\'Ele.' , explicacao: 'A alegria não depende do humor do dia — ela é sustentada por algo mais profundo, a certeza de que Deus está presente e ativo na sua vida.' },
+  { titulo: 'Confiança', versiculo: '"Confia no Senhor de todo o teu coração e não te estribes no teu próprio entendimento."', referencia: 'Provérbios 3:5', louvor: 'Entregue hoje ao Senhor uma preocupação e louve-o por Ele já estar cuidando dela.' , explicacao: 'Confiar de todo o coração é largar a necessidade de entender tudo antes de agir. É um ato de fé que acontece antes das respostas chegarem.' },
+  { titulo: 'Coragem', versiculo: '"Não te mandei eu? Esforça-te e tem bom ânimo; não temas, nem te espantes."', referencia: 'Josué 1:9', louvor: 'Glorifique a Deus pela coragem que Ele coloca em você diante do que parece grande demais.' , explicacao: 'Coragem não é a ausência de medo, é agir apesar dele, lembrando que Deus está com você em cada passo, mesmo no que parece grande demais.' },
+  { titulo: 'Humildade', versiculo: '"Antes da honra vai a humildade."', referencia: 'Provérbios 15:33', louvor: 'Adore ao Senhor reconhecendo que tudo o que você tem e é vem d\'Ele.' , explicacao: 'A humildade não é se diminuir, é reconhecer com honestidade de onde vêm as suas forças e conquistas — e isso liberta de comparações e do orgulho.' },
+  { titulo: 'Perdão', versiculo: '"Sede uns para com os outros benignos, misericordiosos, perdoando-vos uns aos outros, como também Deus vos perdoou em Cristo."', referencia: 'Efésios 4:32', louvor: 'Louve a Deus pelo perdão que Ele já ofereceu a você em Cristo, sem condição.' , explicacao: 'Perdoar não significa esquecer ou aprovar o que aconteceu. É escolher soltar o peso de carregar a dívida do outro, como Deus soltou a sua.' },
+  { titulo: 'Paciência', versiculo: '"O amor é paciente, é benigno."', referencia: '1 Coríntios 13:4', louvor: 'Agradeça ao Senhor pela paciência que Ele tem tido com você a cada dia.' , explicacao: 'Paciência se constrói na espera, não na pressa. É a capacidade de continuar fiel enquanto o tempo de Deus ainda não chegou.' },
+  { titulo: 'Bondade', versiculo: '"Provai e vede que o Senhor é bom."', referencia: 'Salmos 34:8', louvor: 'Bendiga a Deus pela bondade que Ele tem demonstrado em pequenos detalhes da sua semana.' , explicacao: 'A bondade de Deus muitas vezes aparece em detalhes discretos do dia a dia — um alívio inesperado, uma palavra certa, um cuidado silencioso.' },
+  { titulo: 'Fidelidade', versiculo: '"Grande é a tua fidelidade."', referencia: 'Lamentações 3:23', louvor: 'Exalte o Senhor porque Ele nunca falhou em cumprir o que prometeu.' , explicacao: 'Fidelidade é o que sustenta um relacionamento além dos sentimentos do momento. A de Deus por você nunca falhou, mesmo quando a sua vacilou.' },
+  { titulo: 'Mansidão', versiculo: '"Bem-aventurados os mansos, porque eles herdarão a terra."', referencia: 'Mateus 5:5', louvor: 'Adore a Deus pedindo que Ele molde em você um espírito manso e sereno.' , explicacao: 'Mansidão não é fraqueza, é força sob controle. É a capacidade de responder com serenidade mesmo quando tudo convida à reação.' },
+  { titulo: 'Domínio Próprio', versiculo: '"Porque Deus não nos deu o espírito de temor, mas de fortaleza, e de amor, e de moderação."', referencia: '2 Timóteo 1:7', louvor: 'Agradeça ao Senhor pelo domínio próprio que Ele vai formando em você aos poucos.' , explicacao: 'Domínio próprio é a liberdade de escolher a resposta certa em vez de reagir por impulso. Ele se fortalece a cada pequena escolha consciente.' },
+  { titulo: 'Sabedoria', versiculo: '"E, se algum de vós tem falta de sabedoria, peça-a a Deus, que a todos dá liberalmente."', referencia: 'Tiago 1:5', louvor: 'Louve a Deus por Ele dar sabedoria a quem pede, sem cobrar nada em troca.' , explicacao: 'Sabedoria bíblica não é apenas conhecimento, é saber aplicar a verdade de Deus nas decisões concretas do cotidiano, com discernimento e humildade.' },
+  { titulo: 'Verdade', versiculo: '"Conhecereis a verdade, e a verdade vos libertará."', referencia: 'João 8:32', louvor: 'Glorifique a Deus por Ele ser a própria verdade que liberta e não engana.' , explicacao: 'A verdade de Deus não aprisiona, liberta. Viver alinhado a ela traz clareza onde antes havia confusão ou meias-verdades convenientes.' },
+  { titulo: 'Justiça', versiculo: '"Ele é a Rocha, cuja obra é perfeita; porque todos os seus caminhos são juízo; Deus é a verdade, e não há nele injustiça."', referencia: 'Deuteronômio 32:4', louvor: 'Bendiga o Senhor porque Ele é justo mesmo quando as circunstâncias parecem injustas.' , explicacao: 'A justiça de Deus não se guia pelas aparências, mas pelo caráter e pela intenção do coração — algo que nenhum julgamento humano alcança por completo.' },
+  { titulo: 'Misericórdia', versiculo: '"As misericórdias do Senhor são a causa de não sermos consumidos, porque as suas misericórdias não têm fim."', referencia: 'Lamentações 3:22', louvor: 'Adore a Deus por Suas misericórdias serem novas a cada manhã, sem se esgotarem.' , explicacao: 'A misericórdia de Deus é renovada a cada manhã. Isso significa que o erro de ontem não define o recomeço de hoje.' },
+  { titulo: 'Graça', versiculo: '"Porque pela graça sois salvos, por meio da fé; e isto não vem de vós, é dom de Deus."', referencia: 'Efésios 2:8', louvor: 'Agradeça ao Senhor pela graça que salva sem que você precise merecer.' , explicacao: 'Graça é receber algo que não se conquistou. Ela retira o peso de tentar merecer o amor de Deus e devolve a liberdade de simplesmente recebê-lo.' },
+  { titulo: 'Comunhão', versiculo: '"E perseveravam na doutrina dos apóstolos, e na comunhão, e no partir do pão, e nas orações."', referencia: 'Atos 2:42', louvor: 'Louve a Deus pela comunhão com Ele e com quem caminha ao seu lado na fé.' , explicacao: 'Comunhão é o lembrete de que a caminhada de fé não foi feita para ser solitária — ela se fortalece quando compartilhada com outros que também buscam a Deus.' },
+  { titulo: 'Adoração', versiculo: '"Deus é Espírito, e importa que os que o adoram o adorem em espírito e em verdade."', referencia: 'João 4:24', louvor: 'Exalte o Senhor com toda a sinceridade do seu coração, sem precisar de palco.' , explicacao: 'Adorar não depende de um lugar ou momento especial. É a postura de reconhecer quem Deus é, em qualquer situação, com sinceridade.' },
+  { titulo: 'Serviço', versiculo: '"Mas o que quiser, entre vós, fazer-se grande, seja vosso serviçal."', referencia: 'Mateus 20:26', louvor: 'Bendiga a Deus pela oportunidade de servir a alguém hoje, mesmo em silêncio.' , explicacao: 'Servir sem esperar reconhecimento revela o que realmente motiva o coração. É no anonimato que o caráter genuíno aparece com mais clareza.' },
+  { titulo: 'Generosidade', versiculo: '"Cada um contribua segundo propôs no seu coração; não com tristeza, ou por necessidade; porque Deus ama ao que dá com alegria."', referencia: '2 Coríntios 9:7', louvor: 'Adore ao Senhor pela alegria de poder dar, sabendo que tudo já veio d\'Ele.' , explicacao: 'Generosidade nasce da confiança de que tudo já veio das mãos de Deus. Dar deixa de ser perda quando se entende que a fonte nunca seca.' },
+  { titulo: 'Perseverança', versiculo: '"E não nos cansemos de fazer o bem, porque a seu tempo ceifaremos, se não desfalecermos."', referencia: 'Gálatas 6:9', louvor: 'Glorifique a Deus por Ele sustentar você mesmo quando o cansaço aperta.' , explicacao: 'Perseverar é continuar fiel mesmo quando o resultado ainda não apareceu. É confiar que o esforço fiel de hoje não será em vão.' },
+  { titulo: 'Obediência', versiculo: '"Se me amais, guardareis os meus mandamentos."', referencia: 'João 14:15', louvor: 'Louve a Deus pela oportunidade de obedecer como forma de amá-lo de volta.' , explicacao: 'Obediência não é sobre regras, é sobre confiança — confiar que o caminho de Deus, mesmo quando desafia a lógica, é o melhor para você.' },
+  { titulo: 'Santidade', versiculo: '"Sede santos, porque eu sou santo."', referencia: '1 Pedro 1:16', louvor: 'Adore o Senhor pedindo que Ele separe seu coração para o que é puro e bom.' , explicacao: 'Santidade é um convite a viver separado do que corrompe, não por rigidez, mas porque Deus deseja o melhor para o seu coração e sua vida.' },
+  { titulo: 'Liberdade', versiculo: '"Vós fostes chamados à liberdade."', referencia: 'Gálatas 5:13', louvor: 'Agradeça a Deus pela liberdade que Ele conquistou para você em Cristo.' , explicacao: 'A liberdade que Cristo oferece não é para viver sem limites, mas para viver livre do peso da culpa e das amarras que prendiam antes.' },
+  { titulo: 'Restauração', versiculo: '"E o Deus de toda a graça (...) vos aperfeiçoará, confirmará, fortificará e estabelecerá."', referencia: '1 Pedro 5:10', louvor: 'Bendiga o Senhor por Ele restaurar áreas da sua vida que pareciam sem solução.' , explicacao: 'Restauração é a promessa de que nenhuma área da vida está longe demais do alcance de Deus para ser reconstruída e renovada.' },
+  { titulo: 'Cura', versiculo: '"Ele sara os quebrantados de coração e liga as suas feridas."', referencia: 'Salmos 147:3', louvor: 'Exalte a Deus pela cura que Ele opera, mesmo nas feridas mais antigas.' , explicacao: 'A cura de Deus alcança feridas que o tempo sozinho não resolve. Ele trabalha nas partes mais escondidas e machucadas do coração.' },
+  { titulo: 'Provisão', versiculo: '"O meu Deus, segundo as suas riquezas, suprirá todas as vossas necessidades em glória, por Cristo Jesus."', referencia: 'Filipenses 4:19', louvor: 'Louve o Senhor por Ele conhecer e suprir aquilo que você precisa antes mesmo de pedir.' , explicacao: 'Provisão não é apenas sobre dinheiro — é a certeza de que Deus conhece cada necessidade sua antes mesmo de você verbalizá-la.' },
+  { titulo: 'Proteção', versiculo: '"O Senhor é a minha rocha, e o meu lugar forte, e o meu libertador."', referencia: 'Salmos 18:2', louvor: 'Adore a Deus por ser abrigo seguro nos dias de incerteza.' , explicacao: 'A proteção de Deus não elimina todas as dificuldades, mas garante que você nunca as enfrenta sozinho, mesmo nos dias mais incertos.' },
+  { titulo: 'Direção', versiculo: '"Confia no Senhor de todo o teu coração (...) e ele endireitará as tuas veredas."', referencia: 'Provérbios 3:5-6', louvor: 'Agradeça ao Senhor por Ele guiar seus passos mesmo quando o caminho não está claro.' , explicacao: 'Direção divina muitas vezes vem passo a passo, não o mapa inteiro de uma vez. Confiar é seguir o próximo passo com o que já se sabe.' },
+  { titulo: 'Presença', versiculo: '"Eis que estou convosco todos os dias, até à consumação dos séculos."', referencia: 'Mateus 28:20', louvor: 'Bendiga a Deus por Sua presença constante, em todo momento do seu dia.' , explicacao: 'A presença de Deus não é um conceito distante — ela acompanha o cotidiano comum, o trabalho, a casa, os momentos mais simples do dia.' },
+  { titulo: 'Descanso', versiculo: '"Vinde a mim, todos os que estais cansados e oprimidos, e eu vos aliviarei."', referencia: 'Mateus 11:28', louvor: 'Glorifique o Senhor por Ele oferecer descanso verdadeiro para a alma cansada.' , explicacao: 'Descanso verdadeiro não é apenas parar de trabalhar, é entregar as preocupações e confiar que Deus continua agindo enquanto você repousa.' },
+  { titulo: 'Renovação', versiculo: '"Ainda que o nosso homem exterior se corrompa, o interior, contudo, se renova de dia em dia."', referencia: '2 Coríntios 4:16', louvor: 'Louve a Deus por renovar suas forças a cada novo dia, mesmo em meio ao desgaste.' , explicacao: 'Renovação diária é necessária porque o desgaste também é diário. Deus oferece forças novas a cada manhã, mesmo quando o corpo está cansado.' },
+  { titulo: 'Vitória', versiculo: '"Mas graças a Deus que nos dá a vitória por nosso Senhor Jesus Cristo."', referencia: '1 Coríntios 15:57', louvor: 'Adore o Senhor pela vitória que já é sua em Cristo, independente da batalha de hoje.' , explicacao: 'A vitória em Cristo já foi conquistada — isso muda a forma de enfrentar as batalhas de hoje, sabendo que o resultado final já está definido.' },
+  { titulo: 'Força', versiculo: '"O Senhor é a minha força e o meu escudo; nele confiou o meu coração, e fui socorrido."', referencia: 'Salmos 28:7', louvor: 'Agradeça a Deus por Ele ser sua força quando as próprias forças já não bastam.' , explicacao: 'Quando as próprias forças acabam, a força de Deus se torna evidente. É justamente na fraqueza reconhecida que Ele sustenta com mais clareza.' },
+  { titulo: 'Consolo', versiculo: '"Bendito o Deus (...) que nos consola em toda a nossa tribulação."', referencia: '2 Coríntios 1:3-4', louvor: 'Bendiga o Senhor por Seu consolo alcançar exatamente onde dói.' , explicacao: 'O consolo de Deus não ignora a dor, Ele entra nela junto com você e caminha ao seu lado até que a ferida comece a cicatrizar.' },
+  { titulo: 'Unidade', versiculo: '"Eis aqui está bom e quão suave é que os irmãos vivam em união."', referencia: 'Salmos 133:1', louvor: 'Exalte a Deus pela unidade que Ele constrói entre pessoas diferentes.' , explicacao: 'Unidade não significa ausência de diferenças, mas a escolha de caminhar junto, mesmo quando as opiniões e histórias divergem.' },
+  { titulo: 'Propósito', versiculo: '"Porque somos feitura sua, criados em Cristo Jesus para as boas obras."', referencia: 'Efésios 2:10', louvor: 'Louve o Senhor por ter um propósito específico e bom preparado para a sua vida.' , explicacao: 'Ter propósito é entender que sua vida não é aleatória — há intenção e cuidado de Deus por trás de cada etapa que você atravessa.' },
+  { titulo: 'Identidade', versiculo: '"Mas vós sois a geração eleita, o sacerdócio real, a nação santa, o povo adquirido."', referencia: '1 Pedro 2:9', louvor: 'Adore a Deus por Ele definir quem você é, muito além de qualquer rótulo do mundo.' , explicacao: 'Sua identidade não é definida pelo que os outros dizem ou pelo que você conquista, mas por quem Deus diz que você é.' },
+  { titulo: 'Herança', versiculo: '"Filhos, e se filhos, também herdeiros, herdeiros de Deus e co-herdeiros com Cristo."', referencia: 'Romanos 8:17', louvor: 'Agradeça ao Senhor por fazer de você herdeiro de tudo o que é d\'Ele.' , explicacao: 'Ser herdeiro de Deus significa que tudo que Ele tem já está reservado para você — não como recompensa por mérito, mas como filiação.' },
+  { titulo: 'Promessa', versiculo: '"Não há falhado uma só palavra de todas as suas boas promessas."', referencia: '1 Reis 8:56', louvor: 'Bendiga a Deus porque nenhuma promessa Sua jamais falhou até hoje.' , explicacao: 'As promessas de Deus não têm prazo de validade determinado por você. Elas se cumprem no tempo certo, mesmo quando parece que demoram.' },
+  { titulo: 'Aliança', versiculo: '"Guarda, pois, a aliança do Senhor teu Deus, andando nos seus caminhos."', referencia: 'Deuteronômio 8:6', louvor: 'Glorifique o Senhor pela aliança fiel que Ele mantém com você, geração após geração.' , explicacao: 'Uma aliança é um compromisso que resiste ao tempo. A de Deus com você não depende do seu desempenho para continuar válida.' },
+  { titulo: 'Intercessão', versiculo: '"Ele vive sempre para interceder por eles."', referencia: 'Hebreus 7:25', louvor: 'Louve a Deus porque Cristo intercede por você mesmo quando você não sabe orar.' , explicacao: 'Saber que alguém intercede por você, mesmo quando você não tem palavras para orar, traz alívio em meio ao cansaço espiritual.' },
+  { titulo: 'Louvor', versiculo: '"Cantarei ao Senhor enquanto viver; cantarei louvores ao meu Deus enquanto eu tiver existência."', referencia: 'Salmos 104:33', louvor: 'Adore ao Senhor simplesmente por quem Ele é, sem pedir nada em troca hoje.' , explicacao: 'Louvor não é apenas cantar — é a decisão de reconhecer a grandeza de Deus independentemente do que o dia trouxer.' },
+  { titulo: 'Simplicidade', versiculo: '"Mas temo que assim como a serpente enganou Eva com a sua astúcia, assim também sejam de alguma sorte corrompidos os vossos sentidos, e se apartem da simplicidade que há em Cristo."', referencia: '2 Coríntios 11:3', louvor: 'Agradeça a Deus pela liberdade de viver um dia simples e sincero diante d\'Ele.' , explicacao: 'Simplicidade é a coragem de viver sem excesso de complicação, com um coração honesto diante de Deus e das pessoas.' },
+  { titulo: 'Integridade', versiculo: '"O que anda em sinceridade anda seguro."', referencia: 'Provérbios 10:9', louvor: 'Bendiga o Senhor por Ele te chamar a viver de forma íntegra, por dentro e por fora.' , explicacao: 'Integridade é fazer o que é certo mesmo quando ninguém está observando — é o alicerce que sustenta a confiança nas relações.' },
+  { titulo: 'Discernimento', versiculo: '"Dá, pois, ao teu servo um coração entendido (...) para discernir entre o bem e o mal."', referencia: '1 Reis 3:9', louvor: 'Exalte a Deus por Ele conceder discernimento a quem humildemente o pede.' , explicacao: 'Discernimento ajuda a distinguir não apenas o certo do errado, mas o bom do melhor, nas escolhas mais sutis do dia a dia.' },
+  { titulo: 'Zelo', versiculo: '"Não sejais vagarosos no cuidado; sede fervorosos no espírito, servindo ao Senhor."', referencia: 'Romanos 12:11', louvor: 'Louve o Senhor pelo zelo que Ele reacende em você para viver com propósito.' , explicacao: 'Zelo é o entusiasmo renovado por viver com propósito, evitando a acomodação que faz a fé esfriar aos poucos.' },
+  { titulo: 'Serenidade', versiculo: '"Tu conservarás em paz aquele cuja mente está firme em ti; porque ele confia em ti."', referencia: 'Isaías 26:3', louvor: 'Adore a Deus pedindo que Sua serenidade cubra sua mente hoje.' , explicacao: 'Serenidade é possível mesmo em meio ao caos quando a mente está ancorada na confiança de que Deus está no controle.' },
+  { titulo: 'Firmeza', versiculo: '"Portanto, meus amados irmãos, sede firmes e constantes, sempre abundantes na obra do Senhor."', referencia: '1 Coríntios 15:58', louvor: 'Agradeça ao Senhor por Ele te manter firme mesmo quando tudo ao redor balança.' , explicacao: 'Firmeza é a capacidade de permanecer fiel aos valores e à fé mesmo quando tudo ao redor parece instável ou incerto.' },
+  { titulo: 'Compaixão', versiculo: '"Sede, pois, benignos uns para com os outros, misericordiosos, perdoando-vos uns aos outros."', referencia: 'Efésios 4:32', louvor: 'Bendiga a Deus pela compaixão que Ele tem por você e que te ensina a ter pelo outro.' , explicacao: 'Compaixão nasce de reconhecer a própria fragilidade — quem já recebeu misericórdia aprende a oferecê-la também aos outros.' },
+  { titulo: 'Ousadia', versiculo: '"Cheguemos, pois, com confiança ao trono da graça."', referencia: 'Hebreus 4:16', louvor: 'Glorifique o Senhor pela ousadia de se aproximar d\'Ele sem medo, a qualquer hora.' , explicacao: 'Ousadia diante de Deus não é arrogância, é a liberdade de se aproximar dEle com confiança, sabendo que Ele recebe de braços abertos.' },
+  { titulo: 'Contentamento', versiculo: '"Não digo isto pela necessidade, porque já aprendi a contentar-me com o que tenho."', referencia: 'Filipenses 4:11', louvor: 'Louve a Deus pelo contentamento que Ele ensina a cultivar, com pouco ou com muito.' , explicacao: 'Contentamento não significa parar de sonhar, mas encontrar paz no que se tem hoje, sem que a felicidade dependa apenas do amanhã.' },
+  { titulo: 'Vigilância', versiculo: '"Vigiai e orai, para que não entreis em tentação."', referencia: 'Mateus 26:41', louvor: 'Adore ao Senhor pedindo um coração atento e vigilante para hoje.' , explicacao: 'Vigilância é manter o coração atento, reconhecendo cedo os sinais de cansaço, desânimo ou desvio antes que se tornem maiores.' },
+  { titulo: 'Excelência', versiculo: '"E tudo quanto fizerdes, fazei-o de todo o coração, como ao Senhor, e não aos homens."', referencia: 'Colossenses 3:23', louvor: 'Agradeça a Deus pela oportunidade de fazer hoje o seu melhor como oferta a Ele.' , explicacao: 'Excelência não é perfeccionismo, é o cuidado genuíno em fazer bem o que está ao alcance, como oferta e não como obrigação.' },
+  { titulo: 'Retidão', versiculo: '"A justiça exalta as nações, mas o pecado é o opróbrio dos povos."', referencia: 'Provérbios 14:34', louvor: 'Bendiga o Senhor por Ele formar em você um caminho reto, mesmo em meio a escolhas difíceis.' , explicacao: 'Retidão é escolher o caminho certo mesmo quando o errado parece mais fácil ou mais rápido no momento.' },
+  { titulo: 'Eternidade', versiculo: '"Ele fez tudo formoso em seu tempo; também pôs no coração do homem a ideia da eternidade."', referencia: 'Eclesiastes 3:11', louvor: 'Exalte a Deus porque tudo o que é feito com Ele carrega valor eterno.' , explicacao: 'Pensar na eternidade muda a forma de viver o presente — dá peso e sentido às escolhas que, à primeira vista, pareciam pequenas.' },
 ];
 
-const temas2 = [
-  { titulo: "Ouvir antes de agir", versiculo: '"Falai, Senhor, porque o vosso servo ouve."', referencia: "1 Samuel 3:10" },
-  { titulo: "O coração que louva na tribulação", versiculo: '"Bendirei o Senhor em todos os tempos."', referencia: "Salmos 34:1" },
-  { titulo: "Guardar o coração", versiculo: '"Sobre tudo o que se deve guardar, guarda o teu coração, porque dele procedem as fontes da vida."', referencia: "Provérbios 4:23" },
-  { titulo: "A força na fraqueza", versiculo: '"Quando sou fraco, então sou forte."', referencia: "2 Coríntios 12:10" },
-  { titulo: "Amor que não pede nada", versiculo: '"O amor é paciente, o amor é bondoso."', referencia: "1 Coríntios 13:4" },
-  { titulo: "Fidelidade no escondido", versiculo: '"Quem é fiel no mínimo também é fiel no muito."', referencia: "Lucas 16:10" },
-  { titulo: "Perdoar de verdade", versiculo: '"Sede bondosos uns para com os outros, compassivos, perdoando-vos mutuamente."', referencia: "Efésios 4:32" },
-  { titulo: "O descanso como confiança", versiculo: '"Em repouso e em confiança está a vossa força."', referencia: "Isaías 30:15" },
-  { titulo: "A boca revela o coração", versiculo: '"O que da boca sai, isso procede do coração."', referencia: "Mateus 15:18" },
-  { titulo: "Servir a Deus nos pequenos", versiculo: '"Tudo o que fizerdes, fazei-o de todo o coração, como ao Senhor."', referencia: "Colossenses 3:23" },
-  { titulo: "Integridade nas sombras", versiculo: '"O homem íntegro anda seguro."', referencia: "Provérbios 10:9" },
-  { titulo: "A alegria como força", versiculo: '"A alegria do Senhor é a vossa força."', referencia: "Neemias 8:10" },
-  { titulo: "Cuidar do outro", versiculo: '"Ninguém busque o seu próprio interesse, mas o de outrem."', referencia: "1 Coríntios 10:24" },
-  { titulo: "O coração que espera", versiculo: '"Aguarda o Senhor; tem bom ânimo e ele fortalecerá o teu coração."', referencia: "Salmos 27:14" },
-  { titulo: "Humildade genuína", versiculo: '"Antes da honra está a humildade."', referencia: "Provérbios 15:33" },
-  { titulo: "A oração que muda tudo", versiculo: '"A oração eficaz do justo pode muito."', referencia: "Tiago 5:16" },
-  { titulo: "Coragem para ser diferente", versiculo: '"Sede fortes e corajosos. Não temais, nem vos espanteis."', referencia: "Josué 1:9" },
-  { titulo: "O legado do coração", versiculo: '"Escolhe hoje a quem sirvas."', referencia: "Josué 24:15" },
-  { titulo: "Renovar a mente", versiculo: '"Sede transformados pela renovação da vossa mente."', referencia: "Romanos 12:2" },
-  { titulo: "40 dias — o início de tudo", versiculo: '"Eis que faço uma coisa nova; não a percebeis vós?"', referencia: "Isaías 43:19" },
-];
-
-for (let i = 0; i < 20; i++) {
-  const t = temas2[i];
-  meditacoes.push({
-    titulo: t.titulo,
-    versiculo: t.versiculo,
-    referencia: t.referencia,
-    reflexao: `Cada dia desta jornada é um tijolo na construção de um coração segundo Deus. O dia ${i+21} te convida a se aprofundar nessa verdade — não apenas como leitura, mas como prática.<br><br>Davi viveu cada atributo de Deus no cotidiano. Não em momentos grandiosos apenas, mas nas escolhas simples de cada manhã. Hoje é mais um desses dias.`,
-    pergunta: "Como essa palavra se aplica ao que você está vivendo hoje — concretamente, nas próximas horas?",
-    oracao: `Senhor, que o Dia ${i+21} seja real para mim — não apenas leitura, mas vida. Que o que leio modele quem eu sou. Amém.`
-  });
-}
-
-const cicloDois = [
-  {
-    titulo: "A fé que não vê mas confia",
-    versiculo: '"Ora, a fé é a certeza daquilo que esperamos e a prova das coisas que não vemos."',
-    referencia: "Hebreus 11:1",
-    reflexao: `Um novo ciclo começa hoje — quarenta dias com temas variados da vida com Deus. Começamos pela fé, porque é ela que sustenta tudo o que virá depois.<br><br>Fé não é ausência de dúvida, é escolher confiar mesmo sem enxergar o caminho inteiro. É dar o próximo passo mesmo quando a luz só alcança até ali.`,
-    pergunta: "Em que área da sua vida você precisa dar um passo de fé mesmo sem ver o resultado final?",
-    oracao: "Senhor, aumenta a minha fé. Ensina-me a confiar no que não vejo e a descansar na certeza de que estás no controle. Amém."
-  },
-  {
-    titulo: "A esperança que não decepciona",
-    versiculo: '"Que o Deus da esperança vos encha de toda a alegria e paz, na fé, para que abundeis em esperança, pelo poder do Espírito Santo."',
-    referencia: "Romanos 15:13",
-    reflexao: `A esperança bíblica não é otimismo ingênuo — é a certeza fundamentada em quem Deus é e no que Ele prometeu. Ela não depende das circunstâncias mudarem.<br><br>Quando tudo parece incerto, a esperança em Deus é uma âncora que segura a alma. Ela não elimina a dor, mas garante que a dor não terá a última palavra.`,
-    pergunta: "Onde você tem colocado sua esperança ultimamente — nas circunstâncias ou em Deus?",
-    oracao: "Pai, enche-me de esperança que não depende do que vejo ao redor. Que eu abunde em esperança pelo poder do Teu Espírito. Amém."
-  },
-  {
-    titulo: "O amor que não desiste",
-    versiculo: '"O amor é paciente, é bondoso; não inveja, não se vangloria, não se orgulha."',
-    referencia: "1 Coríntios 13:4",
-    reflexao: `Paulo descreve o amor não como sentimento, mas como uma série de escolhas diárias: paciência, bondade, humildade. É um amor que age, não apenas que sente.<br><br>Amar assim exige renúncia. Exige colocar o outro à frente do próprio orgulho. É um treino diário, não uma conquista única.`,
-    pergunta: "Qual característica do amor descrito aqui é mais difícil para você viver hoje?",
-    oracao: "Senhor, ensina-me a amar como Tu amas — com paciência, sem orgulho, sem desistir. Que o meu amor seja mais parecido com o Teu a cada dia. Amém."
-  },
-  {
-    titulo: "O fruto que amadurece devagar",
-    versiculo: '"Mas o fruto do Espírito é amor, alegria, paz, longanimidade, benignidade, bondade, fidelidade."',
-    referencia: "Gálatas 5:22",
-    reflexao: `Fruto não aparece da noite para o dia. Ele exige raiz, tempo e paciência com o próprio processo. A longanimidade — a paciência que não desiste — é assim: cultivada devagar.<br><br>Deus não está com pressa de te formar. Ele trabalha em você com a mesma paciência que pede que você tenha com os outros.`,
-    pergunta: "Em que situação você tem sido impaciente — consigo mesma ou com alguém?",
-    oracao: "Pai, cultiva em mim os frutos do Teu Espírito. Que eu tenha paciência comigo mesma, assim como Tu tens comigo. Amém."
-  },
-  {
-    titulo: "Soltar o que pesa",
-    versiculo: '"Antes, sede uns para com os outros benignos, compassivos, perdoando-vos uns aos outros, como também Deus vos perdoou em Cristo."',
-    referencia: "Efésios 4:32",
-    reflexao: `Perdoar não é dizer que não doeu. É escolher não deixar que a dor defina o resto da história. É um ato de fé — confiar que Deus é justo mesmo quando a justiça humana falha.<br><br>O perdão liberta primeiro quem perdoa. Segurar a mágoa é carregar um peso que Deus nunca pediu que você carregasse.`,
-    pergunta: "Existe algo que você ainda precisa perdoar — talvez a si mesma?",
-    oracao: "Senhor, ajuda-me a perdoar como fui perdoada. Liberta meu coração do peso que carrego. Cura o que a mágoa machucou. Amém."
-  },
-  {
-    titulo: "Em tudo dai graças",
-    versiculo: '"Em tudo dai graças, porque esta é a vontade de Deus em Cristo Jesus para convosco."',
-    referencia: "1 Tessalonicenses 5:18",
-    reflexao: `Não é "por tudo" que agradecemos — é "em tudo". Mesmo em meio à dificuldade, existe algo pelo qual agradecer. Gratidão não nega a dor, mas recusa deixar que ela seja tudo o que vemos.<br><br>É uma prática, não um sentimento espontâneo. Quanto mais você a exercita, mais fácil se torna enxergar o bem mesmo em dias difíceis.`,
-    pergunta: "O que você pode agradecer hoje, mesmo em meio a uma dificuldade que está enfrentando?",
-    oracao: "Pai, ensina-me a agradecer em todas as circunstâncias. Que a gratidão molde a forma como enxergo cada dia. Amém."
-  },
-  {
-    titulo: "Considerar o outro superior",
-    versiculo: '"Nada façais por contenda ou por vanglória, mas por humildade; cada um considere os outros superiores a si mesmo."',
-    referencia: "Filipenses 2:3",
-    reflexao: `Humildade não é se diminuir — é parar de se comparar. É reconhecer o valor do outro sem precisar competir por espaço. Jesus, sendo Deus, se esvaziou. Esse é o padrão.<br><br>Numa cultura que ensina a se promover, a humildade genuína é contracultural. E é exatamente isso que a torna tão poderosa.`,
-    pergunta: "Como seria sua semana se você escolhesse, conscientemente, considerar o outro à frente de si mesma?",
-    oracao: "Senhor, esvazia-me do orgulho. Ensina-me a servir sem precisar ser vista. Que a humildade de Cristo seja minha também. Amém."
-  },
-  {
-    titulo: "Sê forte e corajosa",
-    versiculo: '"Não to mandei eu? Sê forte e corajoso; não temas, nem te espantes, porque o Senhor, teu Deus, é contigo, por onde quer que andares."',
-    referencia: "Josué 1:9",
-    reflexao: `Josué recebeu uma missão gigante — liderar um povo inteiro para uma terra desconhecida. Deus não removeu o desafio, mas prometeu presença. A coragem bíblica nasce dali: não da ausência de medo, mas da certeza de que não se está só.<br><br>Você não precisa ter todas as respostas para seguir em frente. Precisa apenas confiar em quem caminha com você.`,
-    pergunta: "Que desafio você tem evitado por medo? O que mudaria se você lembrasse que Deus está com você nele?",
-    oracao: "Pai, dá-me coragem para os desafios que tenho evitado. Lembra-me constantemente que não estou sozinha nessa caminhada. Amém."
-  },
-  {
-    titulo: "O valor que não se compra",
-    versiculo: '"Porque melhor é a sua mercadoria do que a mercadoria de prata, e a sua ganância, melhor do que o ouro mais fino."',
-    referencia: "Provérbios 3:14",
-    reflexao: `Sabedoria bíblica não é acúmulo de informação — é saber aplicar a verdade de Deus na vida real. É discernir o certo do conveniente, o eterno do urgente.<br><br>Pedir sabedoria é reconhecer que, por conta própria, você não enxerga tudo. É uma oração de humildade que Deus sempre responde.`,
-    pergunta: "Em que decisão você precisa pedir sabedoria a Deus hoje, ao invés de decidir sozinha?",
-    oracao: "Senhor, dá-me sabedoria para as decisões diante de mim. Que eu busque o Teu conselho antes de agir por conta própria. Amém."
-  },
-  {
-    titulo: "Aprendi a contentar-me",
-    versiculo: '"Não digo isto por causa da minha necessidade, porque já aprendi a contentar-me com o que tenho."',
-    referencia: "Filipenses 4:11",
-    reflexao: `Paulo escreveu essas palavras preso, sem controle sobre sua situação. E ainda assim, aprendeu. Contentamento não é sobre ter tudo o que se quer — é sobre confiar em Quem provê o que se precisa.<br><br>É a marca de dez dias já percorridos nesta segunda jornada. Que o contentamento marque também a forma como você olha para o que já viveu até aqui.`,
-    pergunta: "O que impede você de se sentir contente com a fase de vida que está vivendo agora?",
-    oracao: "Pai, ensina-me o segredo do contentamento — em fartura ou em escassez. Que eu descanse no que Tu já me deste. Amém."
-  },
-  {
-    titulo: "Vinde a mim",
-    versiculo: '"Vinde a mim, todos os que estais cansados e sobrecarregados, e eu vos aliviarei."',
-    referencia: "Mateus 11:28",
-    reflexao: `O convite de Jesus não é para os fortes, é para os cansados. Não é preciso arrumar a vida antes de vir — o convite é justamente para vir como está, exausta.<br><br>Descanso em Deus não é apenas parar de trabalhar. É parar de tentar carregar sozinha o que nunca foi para você carregar.`,
-    pergunta: "O que você tem carregado que precisa entregar a Deus hoje?",
-    oracao: "Senhor, venho a Ti cansada. Alivia o peso que carrego. Ensina-me a descansar em Ti de verdade. Amém."
-  },
-  {
-    titulo: "Nova criatura",
-    versiculo: '"Assim que, se alguém está em Cristo, nova criatura é; as coisas velhas já passaram; eis que tudo se fez novo."',
-    referencia: "2 Coríntios 5:17",
-    reflexao: `Sua identidade não é definida pelo seu passado, pelos seus erros, ou pelo que os outros dizem sobre você. Em Cristo, você é nova criatura — não uma versão reformada do velho, mas algo genuinamente novo.<br><br>Isso não apaga a memória, mas muda o peso que ela carrega. O passado te formou, mas não te define mais.`,
-    pergunta: "Que rótulo do passado você ainda carrega, mesmo já sendo nova criatura em Cristo?",
-    oracao: "Pai, obrigada por me fazeres nova. Ajuda-me a viver de acordo com essa identidade e não com meu passado. Amém."
-  },
-  {
-    titulo: "A armadura completa",
-    versiculo: '"Revesti-vos de toda a armadura de Deus, para que possais estar firmes contra as ciladas do diabo."',
-    referencia: "Efésios 6:11",
-    reflexao: `Nem toda luta que enfrentamos é apenas emocional ou circunstancial — algumas são espirituais. E para essas, Deus nos deu uma armadura: verdade, justiça, fé, salvação, Palavra e oração.<br><br>Você não enfrenta essas batalhas com as próprias forças. A armadura já foi dada; o convite é para vesti-la todos os dias.`,
-    pergunta: "Qual peça da armadura de Deus você tem negligenciado ultimamente?",
-    oracao: "Senhor, reveste-me da Tua armadura. Que eu esteja firme diante do que tenta me derrubar. Amém."
-  },
-  {
-    titulo: "Deus ama quem dá com alegria",
-    versiculo: '"Cada um contribua segundo propôs no seu coração, não com tristeza ou por necessidade; porque Deus ama ao que dá com alegria."',
-    referencia: "2 Coríntios 9:7",
-    reflexao: `Generosidade genuína não nasce da obrigação, nasce de um coração que já recebeu e por isso quer dar. Não é sobre quantidade — é sobre disposição.<br><br>Deus não está interessado apenas no que você dá, mas em como você dá. Um coração alegre em generosidade reflete um coração que confia na provisão de Deus.`,
-    pergunta: "Como você pode ser generosa hoje — com tempo, atenção ou recursos — de forma alegre e não forçada?",
-    oracao: "Pai, dá-me um coração generoso e alegre. Que eu confie que Tu supres o que preciso, mesmo quando dou. Amém."
-  },
-  {
-    titulo: "Guiado pela integridade",
-    versiculo: '"A integridade dos retos os guiará, mas a perversidade dos infiéis os destruirá."',
-    referencia: "Provérbios 11:3",
-    reflexao: `Integridade é fazer o que é certo mesmo quando ninguém está olhando. É a coerência entre o que você diz e o que você faz, mesmo quando isso custa algo.<br><br>Não é sobre perfeição, é sobre alinhamento. Um coração íntegro não precisa memorizar mentiras — ele apenas vive a verdade.`,
-    pergunta: "Existe alguma área da sua vida onde há divergência entre o que você diz acreditar e como você age?",
-    oracao: "Senhor, que minha vida seja íntegra diante de Ti, mesmo quando ninguém mais está vendo. Alinha meu coração com a verdade. Amém."
-  },
-  {
-    titulo: "Ele sara os quebrantados",
-    versiculo: '"Sara os quebrantados de coração e liga as suas feridas."',
-    referencia: "Salmos 147:3",
-    reflexao: `Existem feridas que o tempo sozinho não cura — elas só cicatrizam quando entregues a Deus. Ele não ignora a dor, Ele a trata com cuidado, uma ferida de cada vez.<br><br>Cura não é sempre instantânea. Às vezes é um processo, e está tudo bem não estar totalmente curada ainda.`,
-    pergunta: "Que ferida você ainda não entregou completamente a Deus para que Ele cuide dela?",
-    oracao: "Pai, sara as feridas do meu coração. Onde ainda dói, cuida com Tua mão gentil. Não me apresses no processo. Amém."
-  },
-  {
-    titulo: "Tempo para cada coisa",
-    versiculo: '"Tudo tem o seu tempo determinado, e há tempo para todo o propósito debaixo do céu."',
-    referencia: "Eclesiastes 3:1",
-    reflexao: `Uma das lutas mais silenciosas da fé é aceitar que nem tudo acontece no tempo que planejamos. Deus opera dentro de um tempo que faz sentido para Ele, mesmo quando não faz sentido para nós.<br><br>Confiar no tempo de Deus não é passividade. É continuar sendo fiel enquanto se espera.`,
-    pergunta: "O que você está esperando que Deus faça, e como você pode ser fiel enquanto espera?",
-    oracao: "Senhor, ajuda-me a confiar no Teu tempo. Que eu não force o que ainda não é a hora, nem desista do que ainda está por vir. Amém."
-  },
-  {
-    titulo: "Vida e morte na língua",
-    versiculo: '"A morte e a vida estão no poder da língua; e aquele que a ama comerá do seu fruto."',
-    referencia: "Provérbios 18:21",
-    reflexao: `As palavras que você fala — sobre você mesma e sobre os outros — carregam poder. Elas podem edificar ou destruir, curar ou ferir. E muitas vezes, as palavras mais destrutivas são as que dizemos em silêncio, para nós mesmas.<br><br>Cuidar da própria fala é também cuidar do próprio coração.`,
-    pergunta: "Como tem sido a forma como você fala consigo mesma?",
-    oracao: "Pai, guarda minha boca. Que minhas palavras edifiquem e não destruam — os outros e a mim mesma. Amém."
-  },
-  {
-    titulo: "O que o Senhor pede",
-    versiculo: '"E que é o que o Senhor pede de ti, senão que pratiques a justiça, e ames a beneficência, e andes humildemente com o teu Deus?"',
-    referencia: "Miquéias 6:8",
-    reflexao: `Deus não pede rituais complicados. Ele pede três coisas simples e profundas: justiça, misericórdia e humildade. Simples de entender, mas exigem uma vida inteira para aprender a viver.<br><br>Essas três coisas juntas evitam dois extremos: a justiça sem misericórdia é dura, e a misericórdia sem justiça é permissiva demais.`,
-    pergunta: "Qual das três — justiça, misericórdia, humildade — você mais precisa cultivar agora?",
-    oracao: "Senhor, ensina-me a praticar justiça, amar a misericórdia e andar humildemente contigo. Que essas três coisas moldem minha vida. Amém."
-  },
-  {
-    titulo: "Bem-aventurado o que persevera",
-    versiculo: '"Bem-aventurado o homem que sofre a tentação; porque, quando for provado, receberá a coroa da vida."',
-    referencia: "Tiago 1:12",
-    reflexao: `Você está na marca de sessenta dias desta jornada. Perseverar não é sobre nunca cansar — é sobre continuar mesmo cansada. É sobre voltar, dia após dia, mesmo quando a rotina parece repetitiva.<br><br>Deus vê cada dia de fidelidade, mesmo os que parecem pequenos ou sem brilho.`,
-    pergunta: "O que tem te ajudado a continuar até aqui, nesses sessenta dias de jornada?",
-    oracao: "Pai, obrigada pela força para perseverar até aqui. Continua me sustentando nos dias que faltam. Amém."
-  },
-  {
-    titulo: "Não deixar de reunir-se",
-    versiculo: '"Não deixando a nossa congregação, como é costume de alguns; antes, admoestando-nos uns aos outros."',
-    referencia: "Hebreus 10:25",
-    reflexao: `A fé cristã não foi desenhada para ser vivida isolada. Precisamos uns dos outros — para incentivo, correção, e para lembrar, nos dias difíceis, de quem somos em Cristo.<br><br>Comunhão exige vulnerabilidade. É mais fácil manter distância, mas é na proximidade que o crescimento genuíno acontece.`,
-    pergunta: "Como está sua comunhão com outros crentes ultimamente? O que você poderia fazer para fortalecê-la?",
-    oracao: "Senhor, não me deixes isolada. Coloca ao meu redor pessoas que me ajudem a caminhar contigo. Amém."
-  },
-  {
-    titulo: "Em espírito e em verdade",
-    versiculo: '"Deus é Espírito, e importa que os que o adoram o adorem em espírito e em verdade."',
-    referencia: "João 4:24",
-    reflexao: `Adoração não se limita a um momento ou lugar específico. É uma postura de vida — reconhecer quem Deus é em cada área, não só na igreja ou no devocional.<br><br>Adorar em verdade é vir como você realmente é, sem máscaras. Deus não quer sua performance, quer o seu coração.`,
-    pergunta: "Existe alguma máscara que você usa diante de Deus, achando que precisa parecer melhor do que é?",
-    oracao: "Pai, que minha adoração seja verdadeira. Venho como sou, sem máscaras, buscando Te conhecer de verdade. Amém."
-  },
-  {
-    titulo: "Transformados pela renovação",
-    versiculo: '"E não vos conformeis com este século, mas transformai-vos pela renovação do vosso entendimento."',
-    referencia: "Romanos 12:2",
-    reflexao: `A transformação espiritual começa na mente. É nos pensamentos repetidos, nas crenças que você aceita como verdade, que a vida realmente muda de direção.<br><br>Renovar a mente é um processo ativo — trocar pensamentos de derrota por verdade, comparação por identidade, medo por confiança em Deus.`,
-    pergunta: "Que pensamento recorrente você precisa trocar pela verdade de Deus?",
-    oracao: "Senhor, renova minha mente. Que meus pensamentos sejam moldados pela Tua verdade, não pelas mentiras que ouço ou repito. Amém."
-  },
-  {
-    titulo: "Sede sóbrios, vigiai",
-    versiculo: '"Sede sóbrios; vigiai; porque o diabo, vosso adversário, anda em derredor, bramando como leão, buscando a quem possa tragar."',
-    referencia: "1 Pedro 5:8",
-    reflexao: `Vigilância espiritual não é viver com medo — é viver com atenção. É reconhecer que nem todo pensamento ou impulso deve ser seguido sem questionamento.<br><br>Ser sóbria é manter clareza: saber distinguir entre o que edifica e o que destrói, mesmo quando a segunda opção parece mais fácil no momento.`,
-    pergunta: "Em que área da sua vida você precisa de mais vigilância e menos piloto automático?",
-    oracao: "Pai, ajuda-me a ser sóbria e vigilante. Dá-me discernimento para reconhecer o que me afasta de Ti. Amém."
-  },
-  {
-    titulo: "Bem-aventurados os mansos",
-    versiculo: '"Bem-aventurados os mansos, porque eles herdarão a terra."',
-    referencia: "Mateus 5:5",
-    reflexao: `Mansidão não é fraqueza — é força sob controle. É a capacidade de responder com calma quando seria mais fácil reagir com raiva.<br><br>Jesus, que tinha todo o poder, escolheu a mansidão. Isso mostra que força verdadeira não precisa se impor com violência.`,
-    pergunta: "Em que situação recente você reagiu com raiva quando poderia ter respondido com mansidão?",
-    oracao: "Senhor, ensina-me a mansidão de Cristo. Que eu responda com calma onde antes reagia com raiva. Amém."
-  },
-  {
-    titulo: "Levai as cargas uns dos outros",
-    versiculo: '"Levai as cargas uns dos outros, e assim cumprireis a lei de Cristo."',
-    referencia: "Gálatas 6:2",
-    reflexao: `Ninguém foi feito para carregar tudo sozinha. Parte de viver em comunidade é ajudar a carregar o peso do outro — e também permitir que alguém ajude a carregar o seu.<br><br>Pedir ajuda não é fraqueza. É reconhecer os limites humanos que Deus mesmo estabeleceu.`,
-    pergunta: "Você tem permitido que outros ajudem a carregar suas cargas, ou tenta fazer tudo sozinha?",
-    oracao: "Pai, ensina-me a pedir ajuda quando preciso, e a ajudar outros a carregar o que pesa. Amém."
-  },
-  {
-    titulo: "Aprovar o que é excelente",
-    versiculo: '"Para que aproveis as coisas excelentes, para que sejais sinceros, e sem escândalo algum até ao dia de Cristo."',
-    referencia: "Filipenses 1:10",
-    reflexao: `Nem toda escolha é entre o certo e o errado — muitas vezes é entre o bom e o melhor. Discernimento é a habilidade de reconhecer essa diferença.<br><br>Isso exige tempo com Deus, porque o discernimento espiritual não é apenas lógica — é sensibilidade ao Espírito Santo.`,
-    pergunta: "Onde você precisa de mais discernimento para escolher o melhor, não apenas o bom?",
-    oracao: "Senhor, dá-me discernimento para reconhecer o que é excelente. Que eu não me contente com o razoável quando o melhor está disponível. Amém."
-  },
-  {
-    titulo: "A alegria do Senhor é a força",
-    versiculo: '"Não vos entristeçais, porque a alegria do Senhor é a vossa força."',
-    referencia: "Neemias 8:10",
-    reflexao: `A alegria bíblica não depende das circunstâncias — ela nasce da presença de Deus. Diferente da felicidade, que vai e vem, essa alegria pode coexistir com a tristeza.<br><br>Ela é fonte de força, não consequência dela. Você não espera ter forças para depois ser alegre — a alegria é o que te dá forças.`,
-    pergunta: "O que rouba sua alegria com mais frequência? Como você pode buscar a alegria do Senhor nesses momentos?",
-    oracao: "Pai, que a Tua alegria seja minha força hoje, independente das circunstâncias ao meu redor. Amém."
-  },
-  {
-    titulo: "Para a liberdade fostes chamados",
-    versiculo: '"Estai, pois, firmes na liberdade com que Cristo nos libertou, e não torneis a colocar-vos debaixo do jugo da escravidão."',
-    referencia: "Gálatas 5:1",
-    reflexao: `Cristo não morreu para você viver acorrentada — nem às expectativas alheias, nem à performance religiosa, nem à culpa do passado. Ele te libertou para viver de verdade.<br><br>Mas liberdade exige escolha diária. É fácil voltar a antigos jugos sem perceber, especialmente os que parecem espiritualidade.`,
-    pergunta: "Existe algum jugo — culpa, performance, comparação — que você ainda carrega, mesmo já tendo sido libertada?",
-    oracao: "Senhor, ajuda-me a viver na liberdade que Tu me deste. Que eu não volte a jugos que Tu já quebraste. Amém."
-  },
-  {
-    titulo: "O meu Deus suprirá",
-    versiculo: '"O meu Deus, segundo as suas riquezas, suprirá todas as vossas necessidades em glória, por Cristo Jesus."',
-    referencia: "Filipenses 4:19",
-    reflexao: `A promessa não é que Deus suprirá todos os seus desejos, mas as suas necessidades — e segundo as riquezas dEle, não segundo os recursos limitados do mundo.<br><br>Confiar na provisão de Deus é descansar da ansiedade de controlar tudo sozinha. É acreditar que Ele vê o que você precisa antes mesmo de você pedir.`,
-    pergunta: "Em que área você tem tentado prover por si mesma, ao invés de confiar na provisão de Deus?",
-    oracao: "Pai, confio na Tua provisão. Que eu descanse sabendo que Tu vês e supres o que realmente preciso. Amém."
-  },
-  {
-    titulo: "O princípio da sabedoria",
-    versiculo: '"O temor do Senhor é o princípio da sabedoria, e o conhecimento do Santo, a prudência."',
-    referencia: "Provérbios 9:10",
-    reflexao: `Temor do Senhor não é medo paralisante — é reverência profunda. É reconhecer a grandeza de Deus de tal forma que isso molda todas as suas outras escolhas.<br><br>Quando você teme a Deus dessa forma, tudo o mais encontra seu lugar certo. As prioridades se ajustam naturalmente.`,
-    pergunta: "Como a reverência a Deus poderia mudar uma decisão que você está enfrentando agora?",
-    oracao: "Senhor, que eu Te reverencie profundamente. Que esse temor molde minhas escolhas e ajuste minhas prioridades. Amém."
-  },
-  {
-    titulo: "Lâmpada para os meus pés",
-    versiculo: '"Lâmpada para os meus pés é a tua palavra, e luz para o meu caminho."',
-    referencia: "Salmos 119:105",
-    reflexao: `Uma lâmpada não ilumina todo o caminho de uma vez — ela mostra o próximo passo. A Palavra de Deus funciona assim: raramente revela o caminho inteiro, mas sempre é suficiente para o passo seguinte.<br><br>Isso exige confiar em Deus passo a passo, e não exigir ver tudo antes de agir.`,
-    pergunta: "Você tem buscado ver o caminho inteiro, ou está disposta a confiar um passo de cada vez?",
-    oracao: "Pai, que Tua Palavra ilumine meu próximo passo. Ajuda-me a confiar mesmo sem ver o caminho inteiro. Amém."
-  },
-  {
-    titulo: "Orai sem cessar",
-    versiculo: '"Orai sem cessar."',
-    referencia: "1 Tessalonicenses 5:17",
-    reflexao: `Orar sem cessar não significa estar de joelhos o dia inteiro — significa manter uma conversa contínua com Deus ao longo do dia, nas pequenas coisas e nas grandes.<br><br>É viver com a consciência de que Deus está presente em cada momento comum, não apenas nos momentos formais de oração.`,
-    pergunta: "Como seria seu dia se você conversasse com Deus nas tarefas comuns, não só em momentos reservados?",
-    oracao: "Senhor, ensina-me a orar sem cessar — a Te incluir nas pequenas coisas do meu dia, não só nos grandes momentos. Amém."
-  },
-  {
-    titulo: "O que não se vê é eterno",
-    versiculo: '"Não atentando nós nas coisas que se veem, mas nas que se não veem; porque as que se veem são temporais, e as que se não veem são eternas."',
-    referencia: "2 Coríntios 4:18",
-    reflexao: `As dificuldades presentes parecem enormes quando são tudo o que enxergamos. Mas Paulo convida a olhar além — para uma perspectiva eterna que coloca o sofrimento atual em outra proporção.<br><br>Isso não nega a dor de agora. Mas lembra que agora não é tudo o que existe.`,
-    pergunta: "Como uma perspectiva eterna mudaria a forma como você enfrenta o que está vivendo agora?",
-    oracao: "Pai, ajuda-me a olhar além do que vejo agora. Que a perspectiva eterna traga paz para o que enfrento hoje. Amém."
-  },
-  {
-    titulo: "Assim resplandeça a vossa luz",
-    versiculo: '"Assim resplandeça a vossa luz diante dos homens, para que vejam as vossas boas obras."',
-    referencia: "Mateus 5:16",
-    reflexao: `Você não precisa de um palco grande para ser luz. As boas obras mais transformadoras muitas vezes acontecem nos lugares mais simples — em casa, no trabalho, nas conversas do dia a dia.<br><br>Brilhar não é sobre performance, é sobre coerência. É viver de um jeito que aponta naturalmente para Deus.`,
-    pergunta: "Em que espaço simples da sua rotina você pode ser luz hoje?",
-    oracao: "Senhor, que minha vida brilhe de forma natural, apontando para Ti nos lugares mais simples do meu dia. Amém."
-  },
-  {
-    titulo: "Novas a cada manhã",
-    versiculo: '"As misericórdias do Senhor são a causa de não sermos consumidos; porque as suas misericórdias não têm fim; renovam-se cada manhã."',
-    referencia: "Lamentações 3:22-23",
-    reflexao: `Não importa o quanto ontem foi difícil — as misericórdias de Deus se renovam hoje. Você não precisa carregar o fracasso ou o cansaço de ontem para dentro deste novo dia.<br><br>Cada manhã é uma nova oportunidade de recomeçar, não porque você mudou, mas porque a fidelidade de Deus nunca falha.`,
-    pergunta: "Que peso de ontem você pode soltar hoje, confiando nas novas misericórdias de Deus?",
-    oracao: "Pai, obrigada porque Tuas misericórdias se renovam a cada manhã. Ajuda-me a soltar o peso de ontem e viver este novo dia com esperança. Amém."
-  },
-  {
-    titulo: "Combati o bom combate",
-    versiculo: '"Combati o bom combate, acabei a carreira, guardei a fé."',
-    referencia: "2 Timóteo 4:7",
-    reflexao: `Paulo escreveu essas palavras perto do fim da vida, olhando para trás com paz — não porque tudo foi fácil, mas porque foi fiel até o fim.<br><br>Legado espiritual não se mede por grandes feitos visíveis, mas pela fidelidade constante, dia após dia, mesmo quando ninguém está aplaudindo.`,
-    pergunta: "Que tipo de legado espiritual você está construindo através das escolhas diárias de hoje?",
-    oracao: "Senhor, que eu combata o bom combate e guarde a fé até o fim. Que minha vida conte uma história de fidelidade a Ti. Amém."
-  },
-  {
-    titulo: "Enxugará dos seus olhos toda lágrima",
-    versiculo: '"E Deus enxugará de seus olhos toda lágrima; e não haverá mais morte, nem pranto, nem clamor, nem dor."',
-    referencia: "Apocalipse 21:4",
-    reflexao: `Essa promessa não apaga a dor de agora, mas garante que ela não é eterna. Há um horizonte onde toda lágrima será enxugada — e essa esperança pode sustentar você nos dias difíceis de hoje.<br><br>Viver com essa esperança não é fuga da realidade. É a força para atravessá-la sem desespero.`,
-    pergunta: "Como a esperança da eternidade pode trazer conforto para uma dor que você carrega hoje?",
-    oracao: "Pai, obrigada pela promessa de que um dia toda lágrima será enxugada. Sustenta-me com essa esperança nos dias difíceis. Amém."
-  },
-  {
-    titulo: "Contarei as tuas maravilhas",
-    versiculo: '"Geração a geração louvará as tuas obras e anunciará os teus poderosos feitos."',
-    referencia: "Salmos 145:4",
-    reflexao: `Você chegou perto do fim desta segunda jornada de quarenta dias. Olhe para trás — para os oitenta dias percorridos — e reconheça: cada um deles foi Deus formando algo em você.<br><br>Contar as maravilhas de Deus não é só para as gerações futuras. É também um exercício para você mesma, hoje, lembrando de tudo o que Ele já fez.`,
-    pergunta: "Olhando para os últimos oitenta dias, qual foi a maior maravilha que você viu Deus fazer em você?",
-    oracao: "Senhor, obrigada por cada dia desta jornada. Que eu nunca esqueça as maravilhas que fizeste em mim ao longo dela. Amém."
-  },
-  {
-    titulo: "Ide, portanto",
-    versiculo: '"Portanto, ide, fazei discípulos de todas as nações (...) e eis que estou convosco todos os dias, até à consumação dos séculos."',
-    referencia: "Mateus 28:19-20",
-    reflexao: `Oitenta dias se completam hoje. Mas essa jornada nunca foi sobre chegar a um número — foi sobre formar um coração cada vez mais parecido com o de Deus.<br><br>O convite agora é para viver o que foi cultivado aqui, longe da tela, nos detalhes comuns da vida. E lembrar sempre: Ele está com você, todos os dias, até o fim.`,
-    pergunta: "Como você pretende continuar cultivando, no dia a dia, o que foi plantado nesses oitenta dias?",
-    oracao: "Pai, obrigada por esses oitenta dias. Que o que aprendi aqui não fique só nas páginas, mas se torne vida. Caminha comigo, todos os dias, até o fim. Amém."
-  },
-];
-meditacoes.push(...cicloDois);
-
-const DATA_INICIO = '2026-06-08';
-const DIAS_CONCLUIDOS_INICIAIS = [1, 2, 3, 4, 5, 6]; // 08/06 a 13/06
+const DATA_INICIO = '2026-08-26';
+const DIAS_CONCLUIDOS_INICIAIS = []; // novo ciclo de 60 dias, começando do zero
 
 let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"completedDays":[],"startDate":null}');
 
@@ -837,12 +490,8 @@ function selectDay(day) {
   document.getElementById('med-dia').textContent = `Dia ${day}`;
   document.getElementById('med-titulo').textContent = m.titulo;
   document.getElementById('med-versiculo').innerHTML = `${m.versiculo}<cite>— ${m.referencia}</cite>`;
-  document.getElementById('med-reflexao').innerHTML = m.reflexao;
-  document.getElementById('med-pergunta-text').textContent = m.pergunta;
-  document.getElementById('oracao-text').textContent = m.oracao;
-  document.getElementById('oracao-text').classList.remove('visible');
-  document.getElementById('oracao-btn').classList.remove('open');
-  document.getElementById('oracao-btn').textContent = '✦ Ver sugestão de oração para hoje';
+  document.getElementById('med-explicacao').textContent = m.explicacao;
+  document.getElementById('med-louvor-text').textContent = m.louvor;
   const btn = document.getElementById('marcar-btn');
   if (isDayDone(day)) { btn.textContent = `✓ Dia ${day} concluído!`; btn.classList.add('marcado'); }
   else { btn.textContent = `✓ Marcar Dia ${day} como concluído`; btn.classList.remove('marcado'); }
@@ -857,14 +506,6 @@ function marcarDia() {
     btn.textContent = `✓ Dia ${currentDay} concluído!`;
     btn.classList.add('marcado');
   }
-}
-
-function toggleOracao() {
-  const t = document.getElementById('oracao-text');
-  const b = document.getElementById('oracao-btn');
-  t.classList.toggle('visible');
-  b.classList.toggle('open');
-  b.textContent = t.classList.contains('visible') ? '✦ Fechar sugestão de oração' : '✦ Ver sugestão de oração para hoje';
 }
 
 function getDiaAtual() {
